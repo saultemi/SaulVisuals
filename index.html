@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saul Captures | Photography</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #0a0a0a;
+      --deep: #111111;
+      --card: #161616;
+      --border: #2a2a2a;
+      --gold: #c9a84c;
+      --gold-light: #e8c97e;
+      --cream: #f5f0e8;
+      --muted: #888;
+      --font-display: 'Cinzel', serif;
+      --font-body: 'Cormorant Garamond', serif;
+      --font-ui: 'Jost', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom Cursor */
+    .cursor {
+      width: 12px; height: 12px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.25s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+      opacity: 0.6;
+    }
+    body:hover .cursor { opacity: 1; }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 60px;
+      transition: background 0.4s ease, padding 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(12px);
+      padding: 16px 60px;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.2em;
+      color: var(--cream);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+      transition: color 0.3s ease;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--cream); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--black) !important;
+      background: var(--gold);
+      padding: 10px 24px;
+      text-decoration: none;
+      transition: background 0.3s ease, transform 0.2s ease !important;
+      border-radius: 1px;
+    }
+    .nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-1px); }
+    .nav-cta::after { display: none !important; }
+
+    /* HERO */
+    #home {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 60% 40%, rgba(201,168,76,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.05) 0%, transparent 50%),
+        linear-gradient(135deg, #0a0a0a 0%, #1a1208 50%, #0a0a0a 100%);
+    }
+    .hero-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+    .hero-line-left {
+      position: absolute;
+      left: 60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 200px;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+      opacity: 0.4;
+    }
+    .hero-line-right {
+      position: absolute;
+      right: 60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 200px;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+      opacity: 0.4;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-ui);
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: 0.05em;
+      color: var(--cream);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.4s forwards;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15em;
+    }
+    .hero-sub {
+      font-family: var(--font-body);
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.6s forwards;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.8s forwards;
+    }
+    .btn-primary {
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--black);
+      padding: 16px 40px;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s;
+      border-radius: 1px;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-ghost {
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      color: var(--cream);
+      padding: 16px 40px;
+      text-decoration: none;
+      transition: border-color 0.3s, transform 0.2s;
+      border-radius: 1px;
+    }
+    .btn-ghost:hover { border-color: var(--gold); transform: translateY(-2px); }
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.2s forwards;
+    }
+    .hero-scroll span {
+      font-family: var(--font-ui);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    /* SECTION BASICS */
+    section { padding: 120px 60px; }
+    .section-eyebrow {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .section-desc {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 540px;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 28px 0;
+    }
+
+    /* ABOUT */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 120px 60px;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--card);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-frame-inner {
+      width: 85%;
+      height: 85%;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .about-placeholder-icon {
+      font-size: 3rem;
+      opacity: 0.3;
+    }
+    .about-placeholder-text {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+    }
+    .about-badge {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 100px;
+      height: 100px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      flex-direction: column;
+    }
+    .about-badge-num {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--black);
+      line-height: 1;
+    }
+    .about-badge-label {
+      font-family: var(--font-ui);
+      font-size: 0.5rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+    .about-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 48px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item { flex: 1; }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    /* GALLERY */
+    #gallery { max-width: 1400px; margin: 0 auto; }
+    .gallery-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 60px;
+    }
+    .gallery-tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--card);
+      padding: 4px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+    }
+    .gallery-tab {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      transition: all 0.3s ease;
+      border-radius: 1px;
+    }
+    .gallery-tab.active {
+      background: var(--gold);
+      color: var(--black);
+    }
+    .gallery-tab:hover:not(.active) { color: var(--cream); }
+
+    .gallery-section { display: none; }
+    .gallery-section.active { display: block; }
+
+    .gallery-grid {
+      display: grid;
+      gap: 12px;
+    }
+    .gallery-grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .gallery-grid-masonry {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+    }
+    .gallery-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.4s ease;
+      cursor: pointer;
+    }
+    .gallery-item:hover { transform: scale(1.01); }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-item.tall { grid-row: span 2; }
+    .gallery-item.wide { grid-column: span 2; }
+    .gallery-placeholder {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 40px 20px;
+      min-height: 280px;
+    }
+    .gallery-placeholder.tall-ph { min-height: 480px; }
+    .gallery-placeholder-icon { font-size: 2rem; opacity: 0.2; }
+    .gallery-placeholder-text {
+      font-family: var(--font-ui);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--border);
+    }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10,10,10,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .gallery-overlay-icon {
+      width: 50px; height: 50px;
+      border: 1px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 1.2rem;
+    }
+    .gallery-caption {
+      font-family: var(--font-ui);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 20px;
+      font-style: italic;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+    }
+
+    /* PRICING */
+    #pricing {
+      background: var(--deep);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .pricing-inner { max-width: 1200px; margin: 0 auto; }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+    }
+    .pricing-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 48px 36px;
+      position: relative;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .pricing-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+    .pricing-card.featured {
+      border-color: var(--gold);
+      background: linear-gradient(135deg, #161408 0%, var(--card) 100%);
+    }
+    .pricing-badge {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: var(--black);
+      font-family: var(--font-ui);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 6px 20px;
+    }
+    .pricing-session {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .pricing-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--cream);
+      margin-bottom: 24px;
+    }
+    .pricing-price {
+      font-family: var(--font-body);
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .pricing-price sup {
+      font-size: 1.2rem;
+      vertical-align: super;
+      color: var(--gold);
+    }
+    .pricing-note {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 32px;
+    }
+    .pricing-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 32px 0;
+    }
+    .pricing-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+    .pricing-features li {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .pricing-features li::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 0.6rem;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+    .pricing-cta {
+      display: block;
+      text-align: center;
+      font-family: var(--font-ui);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 14px;
+      border: 1px solid var(--border);
+      color: var(--cream);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .pricing-cta:hover, .pricing-card.featured .pricing-cta {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--black);
+    }
+    .pricing-card.featured .pricing-cta:hover {
+      background: var(--gold-light);
+    }
+    .pricing-note-bottom {
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 48px;
+      font-style: italic;
+    }
+
+    /* EXTRAS TABLE */
+    .extras-section {
+      max-width: 800px;
+      margin: 60px auto 0;
+    }
+    .extras-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      letter-spacing: 0.1em;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .extras-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .extras-table tr {
+      border-bottom: 1px solid var(--border);
+    }
+    .extras-table td {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      padding: 14px 20px;
+      color: var(--muted);
+    }
+    .extras-table td:last-child {
+      text-align: right;
+      color: var(--gold);
+      font-size: 1.1rem;
+    }
+
+    /* FAQ */
+    #faq { max-width: 800px; margin: 0 auto; }
+    .faq-list { margin-top: 60px; }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 0;
+      cursor: pointer;
+      gap: 20px;
+    }
+    .faq-question h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      color: var(--cream);
+    }
+    .faq-icon {
+      width: 32px; height: 32px;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 1rem;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      background: var(--gold);
+      color: var(--black);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .faq-item.open .faq-answer { max-height: 300px; }
+    .faq-answer p {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--muted);
+      padding-bottom: 28px;
+      line-height: 1.9;
+    }
+
+    /* CONTACT */
+    #contact {
+      background: var(--deep);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .contact-inner { max-width: 640px; margin: 0 auto; }
+    .contact-tagline {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .contact-tagline em { color: var(--gold); font-style: italic; }
+    .contact-desc {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 48px;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: left;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-label {
+      font-family: var(--font-ui);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .form-input, .form-select, .form-textarea {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--cream);
+      padding: 14px 18px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+      border-radius: 1px;
+      width: 100%;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-select { appearance: none; cursor: pointer; }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-submit {
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      padding: 18px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      margin-top: 8px;
+      border-radius: 1px;
+    }
+    .form-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 60px;
+      padding-top: 48px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .contact-info-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .contact-info-label {
+      font-family: var(--font-ui);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .contact-info-value {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--muted);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      padding: 48px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      color: var(--cream);
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy {
+      font-family: var(--font-ui);
+      font-size: 0.6rem;
+      color: var(--border);
+      letter-spacing: 0.1em;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 20px 24px; }
+      nav.scrolled { padding: 14px 24px; }
+      .nav-links { display: none; }
+      section { padding: 80px 24px; }
+      #about { grid-template-columns: 1fr; padding: 80px 24px; }
+      .about-badge { display: none; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+      .hero-line-left, .hero-line-right { display: none; }
+      .gallery-grid-3, .gallery-grid-masonry { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item.wide { grid-column: span 1; }
+      .form-row { grid-template-columns: 1fr; }
+      .gallery-header { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .gallery-tabs { flex-wrap: wrap; }
+      body { cursor: auto; }
+      .cursor, .cursor-ring { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#home" class="nav-logo">Saul <span>Captures</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact" class="nav-cta">Book Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-grain"></div>
+    <div class="hero-line-left"></div>
+    <div class="hero-line-right"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Portrait &amp; Lifestyle Photography</p>
+      <h1 class="hero-title">Every Frame<br/><em>Tells a Story</em></h1>
+      <p class="hero-sub">Quinceañeras · Sessions · Newborns · Family Portraits</p>
+      <div class="hero-actions">
+        <a href="#gallery" class="btn-primary">View Gallery</a>
+        <a href="#contact" class="btn-ghost">Book a Session</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <div id="about">
+    <div class="about-visual reveal">
+      <div class="about-frame">
+        <div class="about-frame-inner">
+          <div class="about-placeholder-icon">📷</div>
+          <p class="about-placeholder-text">Your portrait here</p>
+        </div>
+      </div>
+      <div class="about-badge">
+        <span class="about-badge-num">5+</span>
+        <span class="about-badge-label">Years<br/>Experience</span>
+      </div>
+    </div>
+    <div class="about-text reveal reveal-delay-2">
+      <p class="section-eyebrow">About Saul</p>
+      <h2 class="section-title">Capturing Your Most Precious Moments</h2>
+      <div class="divider"></div>
+      <p class="section-desc">
+        I believe every family, every milestone, every laugh deserves to be preserved with intention and artistry. From the quiet tenderness of a newborn session to the joyful elegance of a quinceañera, I'm here to tell your story — authentically and beautifully.
+      </p>
+      <p class="section-desc" style="margin-top:16px;">
+        Based locally and available for travel, I work with natural light and carefully crafted environments to create images that feel timeless — photographs you'll pass down for generations.
+      </p>
+      <div class="about-stats">
+        <div class="stat-item">
+          <div class="stat-num">300+</div>
+          <div class="stat-label">Sessions Completed</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Client Satisfaction</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Specialties</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <section>
+    <div id="gallery">
+      <div class="gallery-header reveal">
+        <div>
+          <p class="section-eyebrow">Portfolio</p>
+          <h2 class="section-title">The Gallery</h2>
+        </div>
+        <div class="gallery-tabs">
+          <button class="gallery-tab active" onclick="switchTab('quince')">Quinceañeras</button>
+          <button class="gallery-tab" onclick="switchTab('sessions')">Sessions</button>
+          <button class="gallery-tab" onclick="switchTab('baby')">Baby &amp; Newborn</button>
+          <button class="gallery-tab" onclick="switchTab('family')">Family</button>
+        </div>
+      </div>
+
+      <!-- Quinceañera Gallery -->
+      <div class="gallery-section active" id="tab-quince">
+        <div class="gallery-grid gallery-grid-masonry">
+          <div class="gallery-item tall">
+            <div class="gallery-placeholder tall-ph">
+              <div class="gallery-placeholder-icon">👗</div>
+              <p class="gallery-placeholder-text">Quince — Gown Portrait</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">💐</div>
+              <p class="gallery-placeholder-text">Quince — Florals Detail</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">✨</div>
+              <p class="gallery-placeholder-text">Quince — Crown Moment</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+          <div class="gallery-item wide">
+            <div class="gallery-placeholder" style="min-height:220px">
+              <div class="gallery-placeholder-icon">🎊</div>
+              <p class="gallery-placeholder-text">Quince — Full Court</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🌸</div>
+              <p class="gallery-placeholder-text">Quince — Garden Session</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">💃</div>
+              <p class="gallery-placeholder-text">Quince — First Dance</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+        </div>
+        <p class="gallery-caption">A selection of quinceañera portraits — each session unique, each story unforgettable.</p>
+      </div>
+
+      <!-- Sessions Gallery -->
+      <div class="gallery-section" id="tab-sessions">
+        <div class="gallery-grid gallery-grid-3">
+          <div class="gallery-item tall">
+            <div class="gallery-placeholder tall-ph">
+              <div class="gallery-placeholder-icon">🌅</div>
+              <p class="gallery-placeholder-text">Golden Hour Portrait</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🪴</div>
+              <p class="gallery-placeholder-text">Studio Session</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🌿</div>
+              <p class="gallery-placeholder-text">Outdoor Natural Light</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🏙️</div>
+              <p class="gallery-placeholder-text">Urban Editorial</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🎓</div>
+              <p class="gallery-placeholder-text">Graduation Session</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+        </div>
+        <p class="gallery-caption">Personalized portrait sessions crafted around your style and vision.</p>
+      </div>
+
+      <!-- Baby Gallery -->
+      <div class="gallery-section" id="tab-baby">
+        <div class="gallery-grid gallery-grid-3">
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">👶</div>
+              <p class="gallery-placeholder-text">Newborn Wrap</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+          <div class="gallery-item tall">
+            <div class="gallery-placeholder tall-ph">
+              <div class="gallery-placeholder-icon">🍼</div>
+              <p class="gallery-placeholder-text">Newborn — Basket Pose</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🌙</div>
+              <p class="gallery-placeholder-text">Sleepy Newborn</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🎂</div>
+              <p class="gallery-placeholder-text">Cake Smash — 1st Birthday</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🧸</div>
+              <p class="gallery-placeholder-text">6-Month Milestone</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+        </div>
+        <p class="gallery-caption">Gentle, safe, and tender — capturing the miracle of new life.</p>
+      </div>
+
+      <!-- Family Gallery -->
+      <div class="gallery-section" id="tab-family">
+        <div class="gallery-grid gallery-grid-3">
+          <div class="gallery-item wide">
+            <div class="gallery-placeholder" style="min-height:240px">
+              <div class="gallery-placeholder-icon">👨‍👩‍👧‍👦</div>
+              <p class="gallery-placeholder-text">Family — Sunset Field</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+          <div class="gallery-item tall">
+            <div class="gallery-placeholder tall-ph">
+              <div class="gallery-placeholder-icon">🤗</div>
+              <p class="gallery-placeholder-text">Family — Candid Moments</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🌳</div>
+              <p class="gallery-placeholder-text">Family — Park Session</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">❤️</div>
+              <p class="gallery-placeholder-text">Family — Holiday Mini</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+          <div class="gallery-item">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🎄</div>
+              <p class="gallery-placeholder-text">Family — Christmas Session</p>
+            </div>
+            <div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div>
+          </div>
+        </div>
+        <p class="gallery-caption">Family portraits that feel alive — full of laughter, warmth, and connection.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="pricing-inner">
+      <div class="reveal" style="text-align:center;">
+        <p class="section-eyebrow">Investment</p>
+        <h2 class="section-title">Simple, Transparent Pricing</h2>
+        <div class="divider" style="margin:28px auto;"></div>
+        <p class="section-desc" style="margin:0 auto;text-align:center;">Each package is thoughtfully designed to give you everything you need — no hidden fees, no surprises.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Essential -->
+        <div class="pricing-card reveal reveal-delay-1">
+          <p class="pricing-session">Portrait Session</p>
+          <h3 class="pricing-name">Essential</h3>
+          <div class="pricing-price"><sup>$</sup>150</div>
+          <p class="pricing-note">Starting price · 1 hour</p>
+          <div class="pricing-divider"></div>
+          <ul class="pricing-features">
+            <li>1-hour session</li>
+            <li>1 location</li>
+            <li>1 outfit change</li>
+            <li>15 edited digital photos</li>
+            <li>Online gallery delivery</li>
+            <li>2-week turnaround</li>
+          </ul>
+          <a href="#contact" class="pricing-cta">Book This Package</a>
+        </div>
+
+        <!-- Signature (Featured) -->
+        <div class="pricing-card featured reveal reveal-delay-2">
+          <div class="pricing-badge">Most Popular</div>
+          <p class="pricing-session">Family / Quinceañera</p>
+          <h3 class="pricing-name">Signature</h3>
+          <div class="pricing-price"><sup>$</sup>350</div>
+          <p class="pricing-note">Starting price · 2–3 hours</p>
+          <div class="pricing-divider"></div>
+          <ul class="pricing-features">
+            <li>2–3 hour session</li>
+            <li>Up to 2 locations</li>
+            <li>Multiple outfit changes</li>
+            <li>40 edited digital photos</li>
+            <li>Private online gallery</li>
+            <li>1-week turnaround</li>
+            <li>1 printed 8×10 included</li>
+          </ul>
+          <a href="#contact" class="pricing-cta">Book This Package</a>
+        </div>
+
+        <!-- Newborn -->
+        <div class="pricing-card reveal reveal-delay-3">
+          <p class="pricing-session">Newborn / Baby</p>
+          <h3 class="pricing-name">Newborn</h3>
+          <div class="pricing-price"><sup>$</sup>250</div>
+          <p class="pricing-note">Starting price · Up to 2 hours</p>
+          <div class="pricing-divider"></div>
+          <ul class="pricing-features">
+            <li>Up to 2-hour gentle session</li>
+            <li>Studio or in-home option</li>
+            <li>Multiple setups &amp; wraps</li>
+            <li>25 edited digital photos</li>
+            <li>Private online gallery</li>
+            <li>10-day turnaround</li>
+            <li>Sibling/parent photos included</li>
+          </ul>
+          <a href="#contact" class="pricing-cta">Book This Package</a>
+        </div>
+      </div>
+
+      <!-- Extras -->
+      <div class="extras-section reveal">
+        <h3 class="extras-title">À La Carte Add-Ons</h3>
+        <table class="extras-table">
+          <tr><td>Additional edited photo (beyond package)</td><td>$8 each</td></tr>
+          <tr><td>Rush delivery (48–72 hours)</td><td>$75</td></tr>
+          <tr><td>Extra hour of shooting</td><td>$100</td></tr>
+          <tr><td>Travel fee (beyond 30 miles)</td><td>$0.65/mile</td></tr>
+          <tr><td>8×10 print</td><td>$20</td></tr>
+          <tr><td>Canvas print (16×20)</td><td>$85</td></tr>
+          <tr><td>Holiday mini session (30 min)</td><td>$100</td></tr>
+        </table>
+      </div>
+
+      <p class="pricing-note-bottom reveal">All prices are starting rates. Custom packages available — <a href="#contact" style="color:var(--gold);">reach out to chat</a> about your vision.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div id="faq">
+      <div class="reveal" style="text-align:center;">
+        <p class="section-eyebrow">Common Questions</p>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="divider" style="margin:28px auto;"></div>
+      </div>
+      <div class="faq-list">
+
+        <div class="faq-item reveal">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>How do I book a session?</h3>
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-answer">
+            <p>Simply fill out the contact form below or send me a message directly. I'll reach out within 24–48 hours to confirm your date, discuss your vision, and send over a booking agreement. A deposit is required to hold your date.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal reveal-delay-1">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>How far in advance should I book?</h3>
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-answer">
+            <p>I recommend booking at least 3–4 weeks in advance for portrait sessions, and 2–3 months for quinceañeras. Newborn sessions are best booked during your second trimester to secure a spot close to your due date — we schedule and then confirm once baby arrives.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal reveal-delay-2">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>Where will our session take place?</h3>
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-answer">
+            <p>Sessions can take place at a location of your choice — parks, urban areas, your home, a studio, or any meaningful spot. I'll help you choose a location that complements your style and works with the available light. Travel fees may apply beyond 30 miles.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal reveal-delay-1">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>When will I receive my photos?</h3>
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-answer">
+            <p>Most sessions are delivered within 1–2 weeks via a private online gallery where you can view, download, and share your images. Newborn sessions may take up to 2 weeks. Rush delivery (48–72 hrs) is available as an add-on.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>What should we wear?</h3>
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-answer">
+            <p>I'll send a personalized style guide after booking. Generally, coordinating tones (not matching exactly) look great for families. Avoid busy patterns and logos. Most importantly — wear something that makes you feel confident and like yourself. I'm happy to advise!</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal reveal-delay-1">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>What if it rains or we need to reschedule?</h3>
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-answer">
+            <p>Weather happens! If we need to reschedule due to weather or unforeseen circumstances, I'll work with you to find a new date at no extra charge. I ask for at least 48 hours notice for non-weather-related reschedules so I can offer that spot to another family.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>Do you shoot quinceañera events AND portraits?</h3>
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-answer">
+            <p>Yes! I offer both formal quinceañera portrait sessions (pre-event) and full event coverage. Many clients book a portrait session beforehand and also have me present at the celebration. Reach out and let's build the perfect package for your special day.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal reveal-delay-1">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <h3>Do you offer payment plans?</h3>
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-answer">
+            <p>Absolutely. A 50% deposit is required to secure your date, with the remaining balance due on the day of the session. For larger packages (quinceañeras, extended events), custom payment plans can be arranged. Just ask!</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="reveal">
+        <p class="section-eyebrow">Let's Connect</p>
+        <h2 class="contact-tagline">Ready to<br/><em>Create Something Beautiful?</em></h2>
+        <p class="contact-desc">Tell me about your session and I'll be in touch within 24 hours.</p>
+      </div>
+      <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-input" placeholder="Maria" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-input" placeholder="Gonzalez" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="maria@example.com" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone (Optional)</label>
+            <input type="tel" class="form-input" placeholder="(555) 000-0000" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Session Type</label>
+          <select class="form-select form-input">
+            <option value="">Select a session type...</option>
+            <option>Quinceañera Portrait Session</option>
+            <option>Quinceañera Full Event Coverage</option>
+            <option>Newborn / Baby Session</option>
+            <option>Family Portrait Session</option>
+            <option>Individual Portrait Session</option>
+            <option>Holiday Mini Session</option>
+            <option>Other / Custom Package</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ideal Date (Approximate)</label>
+          <input type="text" class="form-input" placeholder="e.g. June 2025, flexible..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tell Me About Your Vision</label>
+          <textarea class="form-textarea" placeholder="Share any details — location ideas, number of people, special requests, or anything you'd like me to know..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send My Inquiry →</button>
+      </form>
+
+      <div class="contact-info reveal">
+        <div class="contact-info-item">
+          <span class="contact-info-label">Email</span>
+          <span class="contact-info-value">hello@saulcaptures.com</span>
+        </div>
+        <div class="contact-info-item">
+          <span class="contact-info-label">Instagram</span>
+          <span class="contact-info-value">@saulcaptures</span>
+        </div>
+        <div class="contact-info-item">
+          <span class="contact-info-label">Response Time</span>
+          <span class="contact-info-value">Within 24–48 hours</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Saul <span>Captures</span></div>
+    <ul class="footer-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 Saul Captures · All rights reserved</p>
+  </footer>
+
+  <script>
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx+'px'; cursor.style.top = my+'px'; });
+    function animateRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx+'px';
+      ring.style.top = ry+'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+    document.querySelectorAll('a, button, .gallery-item, .faq-question, .gallery-tab').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.style.width='20px'; cursor.style.height='20px'; ring.style.width='50px'; ring.style.height='50px'; });
+      el.addEventListener('mouseleave', () => { cursor.style.width='12px'; cursor.style.height='12px'; ring.style.width='36px'; ring.style.height='36px'; });
+    });
+
+    // Nav scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Gallery Tabs
+    function switchTab(id) {
+      document.querySelectorAll('.gallery-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // FAQ
+    function toggleFaq(el) {
+      const item = el.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // Form
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'Inquiry Sent! ✦';
+      btn.style.background = '#2a5c2a';
+      btn.style.color = '#fff';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = 'Send My Inquiry →';
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
