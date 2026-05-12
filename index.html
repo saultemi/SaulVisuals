@@ -4,557 +4,205 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Saul Captures | Photography</title>
-  <link href__="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root {
-      --bg: #EFF0EA;
-      --bg-card: #E8EAE2;
-      --bg-dark: #DDE0D6;
-      --text: #1A1A1A;
-      --muted: #5A5A54;
-      --border: #C8CBC0;
-      --bronze: #9B7B4A;
-      --bronze-light: #B8954F;
-      --font-display: 'Cinzel', serif;
-      --font-body: 'Cormorant Garamond', serif;
-      --font-ui: 'Jost', sans-serif;
+      --bg:      #faf8f4;
+      --bg2:     #f3ede4;
+      --card:    #ffffff;
+      --border:  #e2d9cc;
+      --border2: #cfc4b4;
+      --gold:    #a8792e;
+      --goldh:   #c4963e;
+      --ink:     #1e1a15;
+      --body:    #3d3630;
+      --muted:   #8a7e72;
+      --fd: 'Cinzel', serif;
+      --fb: 'Cormorant Garamond', serif;
+      --fu: 'Jost', sans-serif;
     }
-
     html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--body); font-family: var(--fb); font-size: 18px; line-height: 1.7; overflow-x: hidden; cursor: none; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-body);
-      font-size: 18px;
-      line-height: 1.7;
-      overflow-x: hidden;
-      cursor: none;
-    }
+    .cursor { width: 10px; height: 10px; background: var(--gold); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .3s, height .3s; }
+    .cursor-ring { width: 34px; height: 34px; border: 1.5px solid var(--gold); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); opacity: .5; }
 
-    /* ── CURSOR ── */
-    .cursor {
-      width: 12px; height: 12px;
-      background: var(--bronze);
-      border-radius: 50%;
-      position: fixed; top: 0; left: 0;
-      pointer-events: none; z-index: 9999;
-      transform: translate(-50%,-50%);
-      transition: width .3s, height .3s;
-      mix-blend-mode: multiply;
-    }
-    .cursor-ring {
-      width: 36px; height: 36px;
-      border: 1px solid var(--bronze);
-      border-radius: 50%;
-      position: fixed; top: 0; left: 0;
-      pointer-events: none; z-index: 9998;
-      transform: translate(-50%,-50%);
-      opacity: .5;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 1000;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 26px 60px;
-      transition: background .4s, padding .4s;
-    }
-    nav.scrolled {
-      background: rgba(239,240,234,0.96);
-      backdrop-filter: blur(14px);
-      padding: 16px 60px;
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 1.05rem; letter-spacing: .22em;
-      color: var(--text); text-decoration: none;
-      text-transform: uppercase; cursor: pointer;
-    }
-    .nav-logo span { color: var(--bronze); }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 26px 60px; transition: background .4s, padding .4s, box-shadow .4s; }
+    nav.scrolled { background: rgba(250,248,244,.96); backdrop-filter: blur(12px); padding: 16px 60px; border-bottom: 1px solid var(--border); box-shadow: 0 2px 24px rgba(0,0,0,.06); }
+    .nav-logo { font-family: var(--fd); font-size: 1.05rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
+    .nav-logo span { color: var(--gold); }
     .nav-links { display: flex; gap: 38px; list-style: none; }
-    .nav-links li a {
-      font-family: var(--font-ui); font-size: .72rem;
-      font-weight: 400; letter-spacing: .18em;
-      text-transform: uppercase; text-decoration: none;
-      color: var(--muted); transition: color .3s;
-      position: relative; cursor: pointer;
-    }
-    .nav-links li a::after {
-      content: ''; position: absolute;
-      bottom: -4px; left: 0;
-      width: 0; height: 1px;
-      background: var(--bronze); transition: width .3s;
-    }
-    .nav-links li a:hover, .nav-links li a.active { color: var(--text); }
+    .nav-links li a { font-family: var(--fu); font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); text-decoration: none; cursor: pointer; transition: color .3s; position: relative; }
+    .nav-links li a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width .3s; }
+    .nav-links li a:hover, .nav-links li a.active { color: var(--ink); }
     .nav-links li a:hover::after, .nav-links li a.active::after { width: 100%; }
-    .nav-cta {
-      background: var(--bronze) !important;
-      color: #fff !important;
-      padding: 10px 24px !important;
-      border-radius: 1px;
-    }
-    .nav-cta:hover { background: var(--bronze-light) !important; }
+    .nav-cta { background: var(--ink) !important; color: var(--bg) !important; padding: 10px 24px !important; border-radius: 1px; }
+    .nav-cta:hover { background: var(--gold) !important; }
     .nav-cta::after { display: none !important; }
 
-    /* ── PAGES ── */
     .page { display: none; min-height: 100vh; }
-    .page.active { display: block; animation: pageIn .45s ease forwards; }
-    @keyframes pageIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    .page.active { display: block; animation: pageIn .4s ease forwards; }
+    @keyframes pageIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 
-    /* ── HERO ── */
-    .hero {
-      height: 100vh; position: relative;
-      display: flex; align-items: center;
-      justify-content: center; text-align: center;
-      overflow: hidden;
-    }
+    .hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
     .hero-video-wrap { position: absolute; inset: 0; z-index: 0; }
-    .hero-video-wrap video {
-      width: 100%; height: 100%; object-fit: cover;
-      filter: brightness(0.55) saturate(0.85);
-    }
-    .hero-overlay {
-      position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(to bottom,
-        rgba(239,240,234,0.25) 0%,
-        rgba(239,240,234,0.1) 50%,
-        rgba(239,240,234,0.45) 100%);
-    }
-    .hero-line {
-      position: absolute; z-index: 2; width: 1px;
-      top: 50%; transform: translateY(-50%);
-      height: 180px;
-      background: linear-gradient(to bottom, transparent, var(--bronze), transparent);
-      opacity: .35;
-    }
-    .hero-line.left  { left: 60px; }
-    .hero-line.right { right: 60px; }
+    .hero-video-wrap video { width: 100%; height: 100%; object-fit: cover; }
+    .hero-video-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg,#e8dfd2 0%,#d4c5b0 50%,#c9b89e 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+    .ph-icon { font-size: 3.5rem; opacity: .3; }
+    .ph-label { font-family: var(--fu); font-size: .65rem; letter-spacing: .28em; text-transform: uppercase; color: #8a7a68; }
+    .ph-hint { font-family: var(--fb); font-size: .9rem; color: #9e8e7c; font-style: italic; max-width: 360px; text-align: center; }
+    .hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom,rgba(250,248,244,.28) 0%,rgba(250,248,244,.08) 40%,rgba(250,248,244,.58) 100%); }
+    .hero-line { position: absolute; z-index: 2; width: 1px; top: 50%; transform: translateY(-50%); height: 180px; background: linear-gradient(to bottom,transparent,var(--gold),transparent); opacity: .4; }
+    .hero-line.left { left: 60px; } .hero-line.right { right: 60px; }
     .hero-content { position: relative; z-index: 3; max-width: 820px; padding: 0 24px; }
-    .hero-eyebrow {
-      font-family: var(--font-ui); font-size: .68rem;
-      letter-spacing: .36em; text-transform: uppercase;
-      color: #e8c97e; margin-bottom: 28px;
-      opacity: 0; animation: fadeUp .8s ease .2s forwards;
-    }
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(3rem,8vw,6.2rem);
-      font-weight: 400; line-height: 1.05;
-      letter-spacing: .05em; color: #F5F0E8;
-      margin-bottom: 22px;
-      opacity: 0; animation: fadeUp .9s ease .4s forwards;
-    }
-    .hero-title em {
-      font-style: italic; color: #e8c97e;
-      font-family: var(--font-body); font-size: 1.15em;
-    }
-    .hero-sub {
-      font-family: var(--font-body); font-size: 1.1rem;
-      font-weight: 300; color: rgba(245,240,232,.75);
-      letter-spacing: .06em; margin-bottom: 48px;
-      opacity: 0; animation: fadeUp .9s ease .6s forwards;
-    }
-    .hero-actions {
-      display: flex; gap: 18px;
-      justify-content: center; flex-wrap: wrap;
-      opacity: 0; animation: fadeUp .9s ease .8s forwards;
-    }
-    .btn-primary {
-      font-family: var(--font-ui); font-size: .73rem;
-      letter-spacing: .2em; text-transform: uppercase;
-      background: var(--bronze); color: #fff;
-      padding: 16px 40px; border: none; cursor: pointer;
-      transition: background .3s, transform .2s;
-    }
-    .btn-primary:hover { background: var(--bronze-light); transform: translateY(-2px); }
-    .btn-ghost {
-      font-family: var(--font-ui); font-size: .73rem;
-      letter-spacing: .2em; text-transform: uppercase;
-      border: 1px solid rgba(245,240,232,.45);
-      color: #F5F0E8; padding: 16px 40px;
-      background: transparent; cursor: pointer;
-      transition: border-color .3s, transform .2s;
-    }
-    .btn-ghost:hover { border-color: #e8c97e; transform: translateY(-2px); }
-    .hero-scroll {
-      position: absolute; bottom: 40px; left: 50%;
-      transform: translateX(-50%); z-index: 3;
-      display: flex; flex-direction: column;
-      align-items: center; gap: 8px;
-      opacity: 0; animation: fadeUp 1s ease 1.1s forwards;
-    }
-    .hero-scroll span {
-      font-family: var(--font-ui); font-size: .58rem;
-      letter-spacing: .3em; text-transform: uppercase;
-      color: rgba(245,240,232,.55);
-    }
-    .scroll-line {
-      width: 1px; height: 50px;
-      background: linear-gradient(to bottom, var(--bronze), transparent);
-      animation: pulse 2s ease infinite;
-    }
+    .hero-eyebrow { font-family: var(--fu); font-size: .68rem; letter-spacing: .36em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; opacity: 0; animation: fadeUp .8s ease .2s forwards; }
+    .hero-title { font-family: var(--fd); font-size: clamp(3rem,8vw,6rem); font-weight: 400; line-height: 1.05; letter-spacing: .05em; color: var(--ink); margin-bottom: 20px; opacity: 0; animation: fadeUp .9s ease .4s forwards; }
+    .hero-title em { font-style: italic; color: var(--gold); font-family: var(--fb); font-size: 1.14em; }
+    .hero-sub { font-family: var(--fb); font-size: 1.1rem; font-weight: 300; color: var(--body); letter-spacing: .05em; margin-bottom: 44px; opacity: 0; animation: fadeUp .9s ease .6s forwards; }
+    .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp .9s ease .8s forwards; }
+    .btn-primary { font-family: var(--fu); font-size: .73rem; letter-spacing: .2em; text-transform: uppercase; background: var(--ink); color: var(--bg); padding: 16px 40px; border: none; cursor: pointer; transition: background .3s, transform .2s; border-radius: 1px; }
+    .btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
+    .btn-ghost { font-family: var(--fu); font-size: .73rem; letter-spacing: .2em; text-transform: uppercase; border: 1.5px solid var(--border2); color: var(--ink); padding: 16px 40px; background: transparent; cursor: pointer; transition: border-color .3s, background .3s, transform .2s; border-radius: 1px; }
+    .btn-ghost:hover { border-color: var(--gold); background: rgba(168,121,46,.07); transform: translateY(-2px); }
+    .hero-scroll { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0; animation: fadeUp 1s ease 1.1s forwards; }
+    .hero-scroll span { font-family: var(--fu); font-size: .58rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+    .scroll-line { width: 1px; height: 50px; background: linear-gradient(to bottom,var(--gold),transparent); animation: pulse 2s ease infinite; }
 
-    /* ── HOME BODY ── */
-    .home-about {
-      display: grid; grid-template-columns: 1fr 1fr;
-      border-top: 1px solid var(--border);
-    }
-    .home-about-text {
-      padding: 100px 80px;
-      display: flex; flex-direction: column; justify-content: center;
-    }
-    .home-about-visual {
-      background: var(--bg-card);
-      border-left: 1px solid var(--border);
-      min-height: 520px;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 12px; position: relative; overflow: hidden;
-    }
-    .home-about-visual::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at center, rgba(155,123,74,.08) 0%, transparent 70%);
-    }
-    .about-ph-icon { font-size: 3rem; opacity: .18; }
-    .about-ph-text {
-      font-family: var(--font-ui); font-size: .6rem;
-      letter-spacing: .2em; text-transform: uppercase;
-      color: var(--border);
-    }
+    .home-about { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border); }
+    .home-about-text { padding: 100px 80px; display: flex; flex-direction: column; justify-content: center; }
+    .home-about-visual { background: var(--bg2); border-left: 1px solid var(--border); min-height: 520px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+    .about-ph-icon { font-size: 3rem; opacity: .2; }
+    .about-ph-text { font-family: var(--fu); font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--border2); }
     .home-stats { display: flex; border-top: 1px solid var(--border); }
-    .home-stat {
-      flex: 1; padding: 48px 40px;
-      border-right: 1px solid var(--border); text-align: center;
-    }
+    .home-stat { flex: 1; padding: 48px 40px; border-right: 1px solid var(--border); text-align: center; background: var(--card); }
     .home-stat:last-child { border-right: none; }
-    .stat-num {
-      font-family: var(--font-display);
-      font-size: 2.6rem; color: var(--bronze); line-height: 1;
-    }
-    .stat-label {
-      font-family: var(--font-ui); font-size: .6rem;
-      letter-spacing: .16em; text-transform: uppercase;
-      color: var(--muted); margin-top: 8px;
-    }
+    .stat-num { font-family: var(--fd); font-size: 2.6rem; color: var(--gold); line-height: 1; }
+    .stat-label { font-family: var(--fu); font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
 
-    /* ── PAGE HEADER ── */
-    .page-header {
-      padding: 160px 60px 80px; text-align: center;
-      border-bottom: 1px solid var(--border);
-    }
-    .section-eyebrow {
-      font-family: var(--font-ui); font-size: .65rem;
-      letter-spacing: .35em; text-transform: uppercase;
-      color: var(--bronze); margin-bottom: 16px;
-    }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem,4vw,3.2rem);
-      font-weight: 400; letter-spacing: .05em; line-height: 1.15;
-      color: var(--text);
-    }
-    .divider {
-      width: 50px; height: 1px;
-      background: var(--bronze); margin: 28px auto;
-    }
-    .section-desc {
-      font-family: var(--font-body); font-size: 1.05rem;
-      color: var(--muted); max-width: 540px; margin: 0 auto;
-      font-weight: 300; line-height: 1.9;
-    }
+    .page-header { padding: 160px 60px 80px; text-align: center; background: var(--bg2); border-bottom: 1px solid var(--border); }
+    .eyebrow { font-family: var(--fu); font-size: .65rem; letter-spacing: .35em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .pg-title { font-family: var(--fd); font-size: clamp(2rem,4vw,3.2rem); font-weight: 400; letter-spacing: .05em; line-height: 1.15; color: var(--ink); }
+    .divider { width: 50px; height: 1px; background: var(--gold); margin: 28px auto; }
+    .pg-desc { font-family: var(--fb); font-size: 1.05rem; color: var(--muted); max-width: 540px; margin: 0 auto; font-weight: 300; line-height: 1.9; }
 
-    /* ── GALLERY ── */
     .gallery-wrap { padding: 60px; max-width: 1400px; margin: 0 auto; }
-    .gallery-tabs {
-      display: flex; gap: 4px;
-      background: var(--bg-card); padding: 4px;
-      border: 1px solid var(--border); border-radius: 2px;
-      margin-bottom: 48px; width: fit-content;
-    }
-    .gallery-tab {
-      font-family: var(--font-ui); font-size: .65rem;
-      letter-spacing: .15em; text-transform: uppercase;
-      padding: 11px 22px; cursor: pointer; border: none;
-      background: transparent; color: var(--muted);
-      transition: all .3s;
-    }
-    .gallery-tab.active { background: var(--bronze); color: #fff; }
-    .gallery-tab:hover:not(.active) { color: var(--text); }
+    .gallery-tabs { display: flex; gap: 3px; background: var(--bg2); padding: 4px; border: 1px solid var(--border); border-radius: 2px; margin-bottom: 48px; width: fit-content; }
+    .gallery-tab { font-family: var(--fu); font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; padding: 11px 22px; cursor: pointer; border: none; background: transparent; color: var(--muted); transition: all .3s; border-radius: 1px; }
+    .gallery-tab.active { background: var(--ink); color: var(--bg); }
+    .gallery-tab:hover:not(.active) { color: var(--ink); background: var(--border); }
     .gallery-section { display: none; }
     .gallery-section.active { display: block; animation: pageIn .35s ease forwards; }
     .gallery-grid { display: grid; gap: 10px; }
-    .gallery-grid-3       { grid-template-columns: repeat(3,1fr); }
-    .gallery-grid-masonry { grid-template-columns: repeat(3,1fr); }
-    .gallery-item {
-      background: var(--bg-card); border: 1px solid var(--border);
-      overflow: hidden; position: relative;
-      display: flex; align-items: center; justify-content: center;
-      transition: transform .4s; cursor: pointer;
-    }
-    .gallery-item:hover { transform: scale(1.01); }
-    .gallery-item:hover .gallery-overlay { opacity: 1; }
-    .gallery-item.tall { grid-row: span 2; }
-    .gallery-item.wide { grid-column: span 2; }
-    .gallery-placeholder {
-      width: 100%; min-height: 280px;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 10px; padding: 30px;
-    }
-    .gallery-placeholder.tall-ph { min-height: 480px; }
-    .gp-icon { font-size: 2rem; opacity: .18; }
-    .gp-text {
-      font-family: var(--font-ui); font-size: .58rem;
-      letter-spacing: .2em; text-transform: uppercase; color: var(--border);
-    }
-    .gallery-overlay {
-      position: absolute; inset: 0;
-      background: rgba(239,240,234,.75);
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity .3s;
-    }
-    .gallery-overlay-icon {
-      width: 48px; height: 48px;
-      border: 1px solid var(--bronze);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--bronze); font-size: 1.3rem;
-    }
-    .gallery-caption {
-      font-family: var(--font-body); font-style: italic;
-      font-size: .95rem; color: var(--muted);
-      text-align: center; margin-top: 24px;
-    }
+    .g3 { grid-template-columns: repeat(3,1fr); }
+    .gallery-item { background: var(--bg2); border: 1px solid var(--border); overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; transition: transform .4s, box-shadow .4s; cursor: pointer; }
+    .gallery-item:hover { transform: scale(1.01); box-shadow: 0 8px 40px rgba(0,0,0,.1); }
+    .gallery-item:hover .goverlay { opacity: 1; }
+    .gallery-item.tall { grid-row: span 2; } .gallery-item.wide { grid-column: span 2; }
+    .gph { width: 100%; min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 30px; }
+    .gph.tall-ph { min-height: 480px; }
+    .gp-icon { font-size: 2rem; opacity: .2; }
+    .gp-text { font-family: var(--fu); font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--border2); }
+    .goverlay { position: absolute; inset: 0; background: rgba(30,26,21,.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .3s; }
+    .goverlay-icon { width: 48px; height: 48px; border: 1px solid rgba(255,255,255,.8); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.3rem; }
+    .gcaption { font-family: var(--fb); font-style: italic; font-size: .95rem; color: var(--muted); text-align: center; margin-top: 24px; }
 
-    /* ── PRICING ── */
     .pricing-wrap { padding: 60px; max-width: 1200px; margin: 0 auto; }
-    .pricing-grid {
-      display: grid; grid-template-columns: repeat(3,1fr);
-      gap: 22px; margin-bottom: 60px;
-    }
-    .pricing-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      padding: 48px 34px; position: relative;
-      transition: border-color .3s, transform .3s;
-    }
-    .pricing-card:hover { border-color: var(--bronze); transform: translateY(-4px); }
-    .pricing-card.featured {
-      border-color: var(--bronze);
-      background: linear-gradient(145deg, #E8EAE2, var(--bg-card));
-    }
-    .pricing-badge {
-      position: absolute; top: -1px; left: 50%;
-      transform: translateX(-50%);
-      background: var(--bronze); color: #fff;
-      font-family: var(--font-ui); font-size: .52rem;
-      letter-spacing: .22em; text-transform: uppercase;
-      padding: 6px 22px;
-    }
-    .pricing-session {
-      font-family: var(--font-ui); font-size: .62rem;
-      letter-spacing: .2em; text-transform: uppercase;
-      color: var(--bronze); margin-bottom: 10px;
-    }
-    .pricing-name {
-      font-family: var(--font-display); font-size: 1.5rem;
-      letter-spacing: .08em; color: var(--text); margin-bottom: 22px;
-    }
-    .pricing-price {
-      font-family: var(--font-body); font-size: 3rem;
-      font-weight: 300; line-height: 1; margin-bottom: 6px;
-      color: var(--text);
-    }
-    .pricing-price sup { font-size: 1.2rem; color: var(--bronze); vertical-align: super; }
-    .pricing-note {
-      font-family: var(--font-ui); font-size: .62rem;
-      color: var(--muted); letter-spacing: .1em; margin-bottom: 28px;
-    }
-    .pricing-divider { width: 100%; height: 1px; background: var(--border); margin: 28px 0; }
-    .pricing-features {
-      list-style: none; display: flex;
-      flex-direction: column; gap: 13px; margin-bottom: 36px;
-    }
-    .pricing-features li {
-      font-family: var(--font-body); font-size: .97rem;
-      color: var(--muted); display: flex;
-      align-items: flex-start; gap: 12px;
-    }
-    .pricing-features li::before {
-      content: '✦'; color: var(--bronze); font-size: .55rem;
-      margin-top: 6px; flex-shrink: 0;
-    }
-    .pricing-cta {
-      display: block; text-align: center;
-      font-family: var(--font-ui); font-size: .68rem;
-      letter-spacing: .18em; text-transform: uppercase;
-      padding: 14px; border: 1px solid var(--border);
-      color: var(--text); background: transparent;
-      cursor: pointer; transition: all .3s;
-    }
-    .pricing-cta:hover,
-    .pricing-card.featured .pricing-cta {
-      background: var(--bronze); border-color: var(--bronze); color: #fff;
-    }
-    .extras-section {
-      border-top: 1px solid var(--border); padding-top: 60px;
-      max-width: 760px; margin: 0 auto;
-    }
-    .extras-title {
-      font-family: var(--font-display); font-size: 1.35rem;
-      letter-spacing: .1em; text-align: center;
-      margin-bottom: 28px; color: var(--text);
-    }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; margin-bottom: 60px; }
+    .pricing-card { background: var(--card); border: 1px solid var(--border); padding: 48px 34px; position: relative; transition: border-color .3s, transform .3s, box-shadow .3s; }
+    .pricing-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 12px 48px rgba(168,121,46,.12); }
+    .pricing-card.featured { border-color: var(--gold); background: #fdf9f2; }
+    .p-badge { position: absolute; top: -1px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #fff; font-family: var(--fu); font-size: .52rem; letter-spacing: .22em; text-transform: uppercase; padding: 6px 22px; }
+    .p-session { font-family: var(--fu); font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .p-name { font-family: var(--fd); font-size: 1.5rem; letter-spacing: .08em; color: var(--ink); margin-bottom: 22px; }
+    .p-price { font-family: var(--fb); font-size: 3rem; font-weight: 300; line-height: 1; margin-bottom: 6px; color: var(--ink); }
+    .p-price sup { font-size: 1.2rem; color: var(--gold); vertical-align: super; }
+    .p-note { font-family: var(--fu); font-size: .62rem; color: var(--muted); letter-spacing: .1em; margin-bottom: 28px; }
+    .p-div { width: 100%; height: 1px; background: var(--border); margin: 28px 0; }
+    .p-features { list-style: none; display: flex; flex-direction: column; gap: 13px; margin-bottom: 36px; }
+    .p-features li { font-family: var(--fb); font-size: .97rem; color: var(--body); display: flex; align-items: flex-start; gap: 12px; }
+    .p-features li::before { content: '✦'; color: var(--gold); font-size: .55rem; margin-top: 6px; flex-shrink: 0; }
+    .p-cta { display: block; text-align: center; font-family: var(--fu); font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; padding: 14px; border: 1.5px solid var(--border2); color: var(--ink); background: transparent; cursor: pointer; transition: all .3s; }
+    .p-cta:hover, .pricing-card.featured .p-cta { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+    .extras { border-top: 1px solid var(--border); padding-top: 60px; max-width: 760px; margin: 0 auto; }
+    .extras-title { font-family: var(--fd); font-size: 1.35rem; letter-spacing: .1em; text-align: center; margin-bottom: 28px; color: var(--ink); }
     .extras-table { width: 100%; border-collapse: collapse; }
     .extras-table tr { border-bottom: 1px solid var(--border); }
-    .extras-table td {
-      font-family: var(--font-body); font-size: 1rem;
-      padding: 14px 16px; color: var(--muted);
-    }
-    .extras-table td:last-child { text-align: right; color: var(--bronze); font-size: 1.1rem; }
-    .pricing-footer-note {
-      text-align: center; font-family: var(--font-body);
-      font-size: .95rem; color: var(--muted);
-      margin-top: 40px; font-style: italic;
-    }
-    .pricing-footer-note a { color: var(--bronze); text-decoration: none; cursor: pointer; }
+    .extras-table td { font-family: var(--fb); font-size: 1rem; padding: 14px 16px; color: var(--body); }
+    .extras-table td:last-child { text-align: right; color: var(--gold); font-size: 1.1rem; }
+    .p-footnote { text-align: center; font-family: var(--fb); font-size: .95rem; color: var(--muted); margin-top: 40px; font-style: italic; }
+    .p-footnote a { color: var(--gold); text-decoration: none; cursor: pointer; }
 
-    /* ── FAQ ── */
     .faq-wrap { padding: 60px; max-width: 800px; margin: 0 auto; }
     .faq-item { border-bottom: 1px solid var(--border); }
-    .faq-question {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 28px 0; cursor: pointer; gap: 20px;
-    }
-    .faq-question h3 {
-      font-family: var(--font-display); font-size: 1.08rem;
-      font-weight: 400; letter-spacing: .03em; color: var(--text);
-    }
-    .faq-icon {
-      width: 32px; height: 32px; border: 1px solid var(--border);
-      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-      color: var(--bronze); font-size: 1rem;
-      transition: transform .3s, background .3s;
-    }
-    .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--bronze); color: #fff; }
-    .faq-answer { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
-    .faq-item.open .faq-answer { max-height: 300px; }
-    .faq-answer p {
-      font-family: var(--font-body); font-size: 1rem;
-      color: var(--muted); padding-bottom: 28px; line-height: 1.9;
-    }
+    .faq-q { display: flex; justify-content: space-between; align-items: center; padding: 28px 0; cursor: pointer; gap: 20px; }
+    .faq-q h3 { font-family: var(--fd); font-size: 1.08rem; font-weight: 400; letter-spacing: .03em; color: var(--ink); }
+    .faq-icon { width: 32px; height: 32px; border: 1px solid var(--border2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1rem; transition: transform .3s, background .3s, border-color .3s; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--gold); color: #fff; border-color: var(--gold); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+    .faq-item.open .faq-a { max-height: 300px; }
+    .faq-a p { font-family: var(--fb); font-size: 1rem; color: var(--muted); padding-bottom: 28px; line-height: 1.9; }
 
-    /* ── CONTACT ── */
     .contact-wrap { padding: 60px; max-width: 700px; margin: 0 auto; }
     .contact-form { display: flex; flex-direction: column; gap: 16px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .form-group { display: flex; flex-direction: column; gap: 8px; }
-    .form-label {
-      font-family: var(--font-ui); font-size: .6rem;
-      letter-spacing: .22em; text-transform: uppercase; color: var(--muted);
-    }
-    .form-input, .form-select, .form-textarea {
-      background: var(--bg-card); border: 1px solid var(--border);
-      color: var(--text); padding: 14px 18px;
-      font-family: var(--font-body); font-size: 1rem;
-      outline: none; transition: border-color .3s; width: 100%;
-    }
-    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--bronze); }
+    .form-label { font-family: var(--fu); font-size: .6rem; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+    .form-input, .form-select, .form-textarea { background: var(--card); border: 1px solid var(--border); color: var(--ink); padding: 14px 18px; font-family: var(--fb); font-size: 1rem; outline: none; transition: border-color .3s; border-radius: 1px; width: 100%; }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--border2); }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--gold); }
     .form-select { appearance: none; cursor: pointer; }
     .form-textarea { resize: vertical; min-height: 120px; }
-    .form-submit {
-      font-family: var(--font-ui); font-size: .73rem;
-      letter-spacing: .2em; text-transform: uppercase;
-      background: var(--bronze); color: #fff;
-      border: none; padding: 18px; cursor: pointer;
-      transition: background .3s, transform .2s; margin-top: 6px;
-    }
-    .form-submit:hover { background: var(--bronze-light); transform: translateY(-1px); }
-    .contact-info {
-      display: flex; justify-content: center; gap: 48px;
-      margin-top: 60px; padding-top: 48px;
-      border-top: 1px solid var(--border); flex-wrap: wrap;
-    }
-    .contact-info-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-    .ci-label {
-      font-family: var(--font-ui); font-size: .58rem;
-      letter-spacing: .22em; text-transform: uppercase; color: var(--bronze);
-    }
-    .ci-value { font-family: var(--font-body); font-size: 1rem; color: var(--muted); }
+    .form-submit { font-family: var(--fu); font-size: .73rem; letter-spacing: .2em; text-transform: uppercase; background: var(--ink); color: var(--bg); border: none; padding: 18px; cursor: pointer; transition: background .3s, transform .2s; border-radius: 1px; margin-top: 6px; }
+    .form-submit:hover { background: var(--gold); transform: translateY(-1px); }
+    .contact-info { display: flex; justify-content: center; gap: 48px; margin-top: 60px; padding-top: 48px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+    .ci { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .ci-label { font-family: var(--fu); font-size: .58rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+    .ci-value { font-family: var(--fb); font-size: 1rem; color: var(--muted); }
 
-    /* ── FOOTER ── */
-    footer {
-      background: var(--bg-dark); border-top: 1px solid var(--border);
-      padding: 40px 60px;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 20px;
-    }
-    .footer-logo {
-      font-family: var(--font-display); font-size: .9rem;
-      letter-spacing: .2em; color: var(--text);
-    }
-    .footer-logo span { color: var(--bronze); }
+    footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 40px 60px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .footer-logo { font-family: var(--fd); font-size: .9rem; letter-spacing: .2em; color: var(--ink); }
+    .footer-logo span { color: var(--gold); }
     .footer-links { display: flex; gap: 30px; list-style: none; }
-    .footer-links a {
-      font-family: var(--font-ui); font-size: .62rem;
-      letter-spacing: .15em; text-transform: uppercase;
-      color: var(--muted); text-decoration: none;
-      cursor: pointer; transition: color .3s;
-    }
-    .footer-links a:hover { color: var(--bronze); }
-    .footer-copy { font-family: var(--font-ui); font-size: .58rem; color: var(--border); letter-spacing: .1em; }
+    .footer-links a { font-family: var(--fu); font-size: .62rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); text-decoration: none; cursor: pointer; transition: color .3s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-family: var(--fu); font-size: .58rem; color: var(--border2); letter-spacing: .1em; }
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulse {
-      0%,100% { opacity: .4; }
-      50%      { opacity: 1; }
-    }
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+    .ae { font-family: var(--fu); font-size: .65rem; letter-spacing: .35em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .at { font-family: var(--fd); font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 400; letter-spacing: .04em; line-height: 1.2; color: var(--ink); }
+    .adiv { width: 50px; height: 1px; background: var(--gold); margin: 24px 0; }
+    .ad { font-family: var(--fb); font-size: 1.05rem; color: var(--muted); font-weight: 300; line-height: 1.9; }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes pulse  { 0%,100%{opacity:.4;} 50%{opacity:1;} }
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .65s ease, transform .65s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: .1s; }
-    .reveal-delay-2 { transition-delay: .2s; }
-    .reveal-delay-3 { transition-delay: .3s; }
+    .d1{transition-delay:.1s;} .d2{transition-delay:.2s;} .d3{transition-delay:.3s;}
 
-    /* ── MOBILE ── */
-    @media (max-width: 900px) {
-      nav { padding: 18px 20px; }
-      nav.scrolled { padding: 12px 20px; }
-      .nav-links { display: none; }
-      .home-about { grid-template-columns: 1fr; }
-      .home-about-visual { display: none; }
-      .home-about-text { padding: 60px 24px; }
-      .pricing-grid { grid-template-columns: 1fr; }
-      .gallery-wrap, .pricing-wrap, .faq-wrap, .contact-wrap { padding: 40px 20px; }
-      .gallery-grid-3, .gallery-grid-masonry { grid-template-columns: repeat(2,1fr); }
-      .gallery-item.wide { grid-column: span 1; }
-      .form-row { grid-template-columns: 1fr; }
-      footer { padding: 28px 20px; flex-direction: column; align-items: flex-start; }
-      .hero-line { display: none; }
-      body { cursor: auto; }
-      .cursor, .cursor-ring { display: none; }
-      .page-header { padding: 120px 24px 60px; }
-      .gallery-tabs { flex-wrap: wrap; }
-      .home-stats { flex-wrap: wrap; }
-      .home-stat { min-width: 50%; border-right: none; border-bottom: 1px solid var(--border); }
+    @media(max-width:900px){
+      nav{padding:18px 20px;} nav.scrolled{padding:12px 20px;}
+      .nav-links{display:none;}
+      .home-about{grid-template-columns:1fr;} .home-about-visual{display:none;}
+      .home-about-text{padding:60px 24px;}
+      .pricing-grid{grid-template-columns:1fr;}
+      .gallery-wrap,.pricing-wrap,.faq-wrap,.contact-wrap{padding:40px 20px;}
+      .g3,.gallery-section .g3{grid-template-columns:repeat(2,1fr);}
+      .gallery-item.wide{grid-column:span 1;}
+      .form-row{grid-template-columns:1fr;}
+      footer{padding:28px 20px;flex-direction:column;align-items:flex-start;}
+      .hero-line{display:none;}
+      body{cursor:auto;} .cursor,.cursor-ring{display:none;}
+      .page-header{padding:120px 24px 60px;}
+      .gallery-tabs{flex-wrap:wrap;}
+      .home-stats{flex-wrap:wrap;}
+      .home-stat{min-width:50%;border-right:none;border-bottom:1px solid var(--border);}
     }
   </style>
 </head>
 <body>
-
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- NAV -->
   <nav id="navbar">
     <span class="nav-logo" onclick="showPage('home')">Saul <span>Captures</span></span>
     <ul class="nav-links">
@@ -570,9 +218,21 @@
   <div class="page active" id="page-home">
     <div class="hero">
       <div class="hero-video-wrap">
-        <video autoplay muted loop playsinline>
-          <source src="https://videos.pexels.com/video-files/3045163/3045163-uhd_2560_1440_25fps.mp4" type="video/mp4" />
-        </video>
+        <!--
+          HOW TO ADD YOUR VIDEO:
+          1. Delete the hero-video-placeholder div below.
+          2. Uncomment the video tag.
+          3. Replace YOUR_VIDEO.mp4 with your actual file path.
+
+          <video autoplay muted loop playsinline>
+            <source src="YOUR_VIDEO.mp4" type="video/mp4" />
+          </video>
+        -->
+        <div class="hero-video-placeholder">
+          <div class="ph-icon">🎬</div>
+          <div class="ph-label">Video Background</div>
+          <div class="ph-hint">Replace this with your video — see the code comment above.</div>
+        </div>
       </div>
       <div class="hero-overlay"></div>
       <div class="hero-line left"></div>
@@ -591,18 +251,12 @@
 
     <div class="home-about">
       <div class="home-about-text reveal">
-        <p class="section-eyebrow">About Saul</p>
-        <h2 class="section-title" style="text-align:left;font-size:clamp(1.8rem,3vw,2.6rem);">Capturing Your Most<br/>Precious Moments</h2>
-        <div class="divider" style="margin:24px 0;"></div>
-        <p class="section-desc" style="max-width:100%;margin:0;text-align:left;">
-          I believe every family, every milestone, every laugh deserves to be preserved with intention and artistry. From the quiet tenderness of a newborn to the joy of a quinceañera, I'm here to tell your story — beautifully and authentically.
-        </p>
-        <p class="section-desc" style="max-width:100%;margin:18px 0 0;text-align:left;">
-          Working with natural light and a genuine love for people, I create images that feel timeless — photographs you'll pass down for generations.
-        </p>
-        <div style="margin-top:36px;">
-          <button class="btn-primary" onclick="showPage('gallery')">Explore the Gallery</button>
-        </div>
+        <p class="ae">About Saul</p>
+        <h2 class="at">Capturing Your Most<br/>Precious Moments</h2>
+        <div class="adiv"></div>
+        <p class="ad">I believe every family, every milestone, every laugh deserves to be preserved with intention and artistry. From the quiet tenderness of a newborn to the joy of a quinceañera, I'm here to tell your story — beautifully and authentically.</p>
+        <p class="ad" style="margin-top:16px;">Working with natural light and a genuine love for people, I create images that feel timeless — photographs you'll pass down for generations.</p>
+        <div style="margin-top:36px;"><button class="btn-primary" onclick="showPage('gallery')">Explore the Gallery</button></div>
       </div>
       <div class="home-about-visual">
         <div class="about-ph-icon">📷</div>
@@ -611,10 +265,10 @@
     </div>
 
     <div class="home-stats">
-      <div class="home-stat reveal">              <div class="stat-num">300+</div><div class="stat-label">Sessions Completed</div></div>
-      <div class="home-stat reveal reveal-delay-1"><div class="stat-num">100%</div><div class="stat-label">Client Satisfaction</div></div>
-      <div class="home-stat reveal reveal-delay-2"><div class="stat-num">4</div>   <div class="stat-label">Specialties</div></div>
-      <div class="home-stat reveal reveal-delay-3"><div class="stat-num">5+</div>  <div class="stat-label">Years Experience</div></div>
+      <div class="home-stat reveal">   <div class="stat-num">300+</div><div class="stat-label">Sessions Completed</div></div>
+      <div class="home-stat reveal d1"><div class="stat-num">100%</div><div class="stat-label">Client Satisfaction</div></div>
+      <div class="home-stat reveal d2"><div class="stat-num">4</div>   <div class="stat-label">Specialties</div></div>
+      <div class="home-stat reveal d3"><div class="stat-num">5+</div>  <div class="stat-label">Years Experience</div></div>
     </div>
 
     <footer>
@@ -632,10 +286,10 @@
   <!-- GALLERY -->
   <div class="page" id="page-gallery">
     <div class="page-header">
-      <p class="section-eyebrow">Portfolio</p>
-      <h2 class="section-title">The Gallery</h2>
+      <p class="eyebrow">Portfolio</p>
+      <h2 class="pg-title">The Gallery</h2>
       <div class="divider"></div>
-      <p class="section-desc">A curated selection of sessions — browse by category below.</p>
+      <p class="pg-desc">A curated selection of sessions — browse by category below.</p>
     </div>
     <div class="gallery-wrap">
       <div class="gallery-tabs">
@@ -644,55 +298,57 @@
         <button class="gallery-tab" onclick="switchTab('baby',this)">Baby &amp; Newborn</button>
         <button class="gallery-tab" onclick="switchTab('family',this)">Family</button>
       </div>
+
       <div class="gallery-section active" id="tab-quince">
-        <div class="gallery-grid gallery-grid-masonry">
-          <div class="gallery-item tall"><div class="gallery-placeholder tall-ph"><div class="gp-icon">👗</div><div class="gp-text">Gown Portrait</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gallery-placeholder"><div class="gp-icon">💐</div><div class="gp-text">Florals Detail</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gallery-placeholder"><div class="gp-icon">✨</div><div class="gp-text">Crown Moment</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
-          <div class="gallery-item wide"><div class="gallery-placeholder" style="min-height:220px"><div class="gp-icon">🎊</div><div class="gp-text">Full Court</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gallery-placeholder"><div class="gp-icon">🌸</div><div class="gp-text">Garden Session</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gallery-placeholder"><div class="gp-icon">💃</div><div class="gp-text">First Dance</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
+        <div class="gallery-grid g3">
+          <div class="gallery-item tall"><div class="gph tall-ph"><div class="gp-icon">👗</div><div class="gp-text">Gown Portrait</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">💐</div><div class="gp-text">Florals Detail</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">✨</div><div class="gp-text">Crown Moment</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item wide"><div class="gph" style="min-height:220px"><div class="gp-icon">🎊</div><div class="gp-text">Full Court</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🌸</div><div class="gp-text">Garden Session</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">💃</div><div class="gp-text">First Dance</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
         </div>
-        <p class="gallery-caption">A selection of quinceañera portraits — each session unique, each story unforgettable.</p>
+        <p class="gcaption">Each session unique, each story unforgettable.</p>
       </div>
+
       <div class="gallery-section" id="tab-sessions">
-        <div class="gallery-grid gallery-grid-3">
-          <div class="gallery-item tall"><div class="gallery-placeholder tall-ph"><div class="gp-icon">🌅</div><div class="gp-text">Golden Hour Portrait</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gallery-placeholder"><div class="gp-icon">🪴</div><div class="gp-text">Studio Session</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gallery-placeholder"><div class="gp-icon">🌿</div><div class="gp-text">Natural Light</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gallery-placeholder"><div class="gp-icon">🏙️</div><div class="gp-text">Urban Editorial</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gallery-placeholder"><div class="gp-icon">🎓</div><div class="gp-text">Graduation Session</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
+        <div class="gallery-grid g3">
+          <div class="gallery-item tall"><div class="gph tall-ph"><div class="gp-icon">🌅</div><div class="gp-text">Golden Hour</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🪴</div><div class="gp-text">Studio Session</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🌿</div><div class="gp-text">Natural Light</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🏙️</div><div class="gp-text">Urban Editorial</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🎓</div><div class="gp-text">Graduation</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
         </div>
-        <p class="gallery-caption">Personalized portrait sessions crafted around your style and vision.</p>
+        <p class="gcaption">Personalized sessions crafted around your style and vision.</p>
       </div>
+
       <div class="gallery-section" id="tab-baby">
-        <div class="gallery-grid gallery-grid-3">
-          <div class="gallery-item"><div class="gallery-placeholder"><div class="gp-icon">👶</div><div class="gp-text">Newborn Wrap</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
-          <div class="gallery-item tall"><div class="gallery-placeholder tall-ph"><div class="gp-icon">🍼</div><div class="gp-text">Basket Pose</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gallery-placeholder"><div class="gp-icon">🌙</div><div class="gp-text">Sleepy Newborn</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gallery-placeholder"><div class="gp-icon">🎂</div><div class="gp-text">Cake Smash</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gallery-placeholder"><div class="gp-icon">🧸</div><div class="gp-text">6-Month Milestone</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
+        <div class="gallery-grid g3">
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">👶</div><div class="gp-text">Newborn Wrap</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item tall"><div class="gph tall-ph"><div class="gp-icon">🍼</div><div class="gp-text">Basket Pose</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🌙</div><div class="gp-text">Sleepy Newborn</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🎂</div><div class="gp-text">Cake Smash</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🧸</div><div class="gp-text">6-Month Milestone</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
         </div>
-        <p class="gallery-caption">Gentle, safe, and tender — capturing the miracle of new life.</p>
+        <p class="gcaption">Gentle and tender — capturing the miracle of new life.</p>
       </div>
+
       <div class="gallery-section" id="tab-family">
-        <div class="gallery-grid gallery-grid-3">
-          <div class="gallery-item wide"><div class="gallery-placeholder" style="min-height:240px"><div class="gp-icon">👨‍👩‍👧‍👦</div><div class="gp-text">Sunset Field</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
-          <div class="gallery-item tall"><div class="gallery-placeholder tall-ph"><div class="gp-icon">🤗</div><div class="gp-text">Candid Moments</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gallery-placeholder"><div class="gp-icon">🌳</div><div class="gp-text">Park Session</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gallery-placeholder"><div class="gp-icon">❤️</div><div class="gp-text">Holiday Mini</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gallery-placeholder"><div class="gp-icon">🎄</div><div class="gp-text">Christmas Session</div></div><div class="gallery-overlay"><div class="gallery-overlay-icon">+</div></div></div>
+        <div class="gallery-grid g3">
+          <div class="gallery-item wide"><div class="gph" style="min-height:240px"><div class="gp-icon">👨‍👩‍👧‍👦</div><div class="gp-text">Sunset Field</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item tall"><div class="gph tall-ph"><div class="gp-icon">🤗</div><div class="gp-text">Candid Moments</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🌳</div><div class="gp-text">Park Session</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">❤️</div><div class="gp-text">Holiday Mini</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🎄</div><div class="gp-text">Christmas Session</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
         </div>
-        <p class="gallery-caption">Family portraits full of laughter, warmth, and real connection.</p>
+        <p class="gcaption">Family portraits full of laughter, warmth, and real connection.</p>
       </div>
     </div>
     <footer>
       <div class="footer-logo">Saul <span>Captures</span></div>
       <ul class="footer-links">
-        <li><a onclick="showPage('home')">Home</a></li>
-        <li><a onclick="showPage('pricing')">Pricing</a></li>
-        <li><a onclick="showPage('faq')">FAQ</a></li>
-        <li><a onclick="showPage('contact')">Contact</a></li>
+        <li><a onclick="showPage('home')">Home</a></li><li><a onclick="showPage('pricing')">Pricing</a></li>
+        <li><a onclick="showPage('faq')">FAQ</a></li><li><a onclick="showPage('contact')">Contact</a></li>
       </ul>
       <p class="footer-copy">© 2025 Saul Captures · All rights reserved</p>
     </footer>
@@ -701,52 +357,37 @@
   <!-- PRICING -->
   <div class="page" id="page-pricing">
     <div class="page-header">
-      <p class="section-eyebrow">Investment</p>
-      <h2 class="section-title">Simple, Transparent Pricing</h2>
+      <p class="eyebrow">Investment</p>
+      <h2 class="pg-title">Simple, Transparent Pricing</h2>
       <div class="divider"></div>
-      <p class="section-desc">Each package is thoughtfully designed — no hidden fees, no surprises.</p>
+      <p class="pg-desc">Each package is thoughtfully designed — no hidden fees, no surprises.</p>
     </div>
     <div class="pricing-wrap">
       <div class="pricing-grid">
-        <div class="pricing-card reveal reveal-delay-1">
-          <p class="pricing-session">Portrait Session</p>
-          <h3 class="pricing-name">Essential</h3>
-          <div class="pricing-price"><sup>$</sup>150</div>
-          <p class="pricing-note">Starting price · 1 hour</p>
-          <div class="pricing-divider"></div>
-          <ul class="pricing-features">
-            <li>1-hour session</li><li>1 location</li><li>1 outfit change</li>
-            <li>15 edited digital photos</li><li>Online gallery delivery</li><li>2-week turnaround</li>
-          </ul>
-          <button class="pricing-cta" onclick="showPage('contact')">Book This Package</button>
+        <div class="pricing-card reveal d1">
+          <p class="p-session">Portrait Session</p><h3 class="p-name">Essential</h3>
+          <div class="p-price"><sup>$</sup>150</div><p class="p-note">Starting price · 1 hour</p>
+          <div class="p-div"></div>
+          <ul class="p-features"><li>1-hour session</li><li>1 location</li><li>1 outfit change</li><li>15 edited digital photos</li><li>Online gallery delivery</li><li>2-week turnaround</li></ul>
+          <button class="p-cta" onclick="showPage('contact')">Book This Package</button>
         </div>
-        <div class="pricing-card featured reveal reveal-delay-2">
-          <div class="pricing-badge">Most Popular</div>
-          <p class="pricing-session">Family / Quinceañera</p>
-          <h3 class="pricing-name">Signature</h3>
-          <div class="pricing-price"><sup>$</sup>350</div>
-          <p class="pricing-note">Starting price · 2–3 hours</p>
-          <div class="pricing-divider"></div>
-          <ul class="pricing-features">
-            <li>2–3 hour session</li><li>Up to 2 locations</li><li>Multiple outfit changes</li>
-            <li>40 edited digital photos</li><li>Private online gallery</li><li>1-week turnaround</li><li>1 printed 8×10 included</li>
-          </ul>
-          <button class="pricing-cta" onclick="showPage('contact')">Book This Package</button>
+        <div class="pricing-card featured reveal d2">
+          <div class="p-badge">Most Popular</div>
+          <p class="p-session">Family / Quinceañera</p><h3 class="p-name">Signature</h3>
+          <div class="p-price"><sup>$</sup>350</div><p class="p-note">Starting price · 2–3 hours</p>
+          <div class="p-div"></div>
+          <ul class="p-features"><li>2–3 hour session</li><li>Up to 2 locations</li><li>Multiple outfit changes</li><li>40 edited digital photos</li><li>Private online gallery</li><li>1-week turnaround</li><li>1 printed 8×10 included</li></ul>
+          <button class="p-cta" onclick="showPage('contact')">Book This Package</button>
         </div>
-        <div class="pricing-card reveal reveal-delay-3">
-          <p class="pricing-session">Newborn / Baby</p>
-          <h3 class="pricing-name">Newborn</h3>
-          <div class="pricing-price"><sup>$</sup>250</div>
-          <p class="pricing-note">Starting price · Up to 2 hours</p>
-          <div class="pricing-divider"></div>
-          <ul class="pricing-features">
-            <li>Up to 2-hour gentle session</li><li>Studio or in-home option</li><li>Multiple setups &amp; wraps</li>
-            <li>25 edited digital photos</li><li>Private online gallery</li><li>10-day turnaround</li><li>Sibling/parent photos included</li>
-          </ul>
-          <button class="pricing-cta" onclick="showPage('contact')">Book This Package</button>
+        <div class="pricing-card reveal d3">
+          <p class="p-session">Newborn / Baby</p><h3 class="p-name">Newborn</h3>
+          <div class="p-price"><sup>$</sup>250</div><p class="p-note">Starting price · Up to 2 hours</p>
+          <div class="p-div"></div>
+          <ul class="p-features"><li>Up to 2-hour gentle session</li><li>Studio or in-home option</li><li>Multiple setups &amp; wraps</li><li>25 edited digital photos</li><li>Private online gallery</li><li>10-day turnaround</li><li>Sibling/parent photos included</li></ul>
+          <button class="p-cta" onclick="showPage('contact')">Book This Package</button>
         </div>
       </div>
-      <div class="extras-section reveal">
+      <div class="extras reveal">
         <h3 class="extras-title">À La Carte Add-Ons</h3>
         <table class="extras-table">
           <tr><td>Additional edited photo</td><td>$8 each</td></tr>
@@ -757,16 +398,14 @@
           <tr><td>Canvas print (16×20)</td><td>$85</td></tr>
           <tr><td>Holiday mini session (30 min)</td><td>$100</td></tr>
         </table>
-        <p class="pricing-footer-note">All prices are starting rates. Custom packages available — <a onclick="showPage('contact')">reach out to chat.</a></p>
+        <p class="p-footnote">All prices are starting rates. Custom packages available — <a onclick="showPage('contact')">reach out to chat.</a></p>
       </div>
     </div>
     <footer>
       <div class="footer-logo">Saul <span>Captures</span></div>
       <ul class="footer-links">
-        <li><a onclick="showPage('home')">Home</a></li>
-        <li><a onclick="showPage('gallery')">Gallery</a></li>
-        <li><a onclick="showPage('faq')">FAQ</a></li>
-        <li><a onclick="showPage('contact')">Contact</a></li>
+        <li><a onclick="showPage('home')">Home</a></li><li><a onclick="showPage('gallery')">Gallery</a></li>
+        <li><a onclick="showPage('faq')">FAQ</a></li><li><a onclick="showPage('contact')">Contact</a></li>
       </ul>
       <p class="footer-copy">© 2025 Saul Captures · All rights reserved</p>
     </footer>
@@ -775,28 +414,26 @@
   <!-- FAQ -->
   <div class="page" id="page-faq">
     <div class="page-header">
-      <p class="section-eyebrow">Common Questions</p>
-      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="eyebrow">Common Questions</p>
+      <h2 class="pg-title">Frequently Asked Questions</h2>
       <div class="divider"></div>
-      <p class="section-desc">Everything you need to know before booking your session.</p>
+      <p class="pg-desc">Everything you need to know before booking your session.</p>
     </div>
     <div class="faq-wrap">
-      <div class="faq-item reveal"><div class="faq-question" onclick="toggleFaq(this)"><h3>How do I book a session?</h3><div class="faq-icon">+</div></div><div class="faq-answer"><p>Simply fill out the contact form or message me directly. I'll respond within 24–48 hours to confirm your date, discuss your vision, and send a booking agreement. A deposit is required to hold your date.</p></div></div>
-      <div class="faq-item reveal reveal-delay-1"><div class="faq-question" onclick="toggleFaq(this)"><h3>How far in advance should I book?</h3><div class="faq-icon">+</div></div><div class="faq-answer"><p>I recommend booking 3–4 weeks ahead for portrait sessions, and 2–3 months for quinceañeras. Newborn sessions are best booked during your second trimester — we'll schedule near your due date and confirm once baby arrives.</p></div></div>
-      <div class="faq-item reveal reveal-delay-2"><div class="faq-question" onclick="toggleFaq(this)"><h3>Where will our session take place?</h3><div class="faq-icon">+</div></div><div class="faq-answer"><p>Sessions can happen at a location of your choice — parks, urban spots, your home, a studio, or any meaningful place. I'll help you pick somewhere that works with the light and your style. Travel fees may apply beyond 30 miles.</p></div></div>
-      <div class="faq-item reveal"><div class="faq-question" onclick="toggleFaq(this)"><h3>When will I receive my photos?</h3><div class="faq-icon">+</div></div><div class="faq-answer"><p>Most sessions are delivered within 1–2 weeks via a private online gallery. Newborn sessions may take up to 2 weeks. Rush delivery is available as an add-on.</p></div></div>
-      <div class="faq-item reveal reveal-delay-1"><div class="faq-question" onclick="toggleFaq(this)"><h3>What should we wear?</h3><div class="faq-icon">+</div></div><div class="faq-answer"><p>I'll send a personalized style guide after booking. Coordinating tones (not exact matches) look great for families. Avoid busy patterns and logos. Most importantly — wear something that makes you feel confident.</p></div></div>
-      <div class="faq-item reveal reveal-delay-2"><div class="faq-question" onclick="toggleFaq(this)"><h3>What if it rains or we need to reschedule?</h3><div class="faq-icon">+</div></div><div class="faq-answer"><p>Weather happens! If we need to reschedule due to weather, I'll work with you to find a new date at no extra charge. I ask for at least 48 hours notice for non-weather reschedules.</p></div></div>
-      <div class="faq-item reveal"><div class="faq-question" onclick="toggleFaq(this)"><h3>Do you shoot quinceañera events AND portraits?</h3><div class="faq-icon">+</div></div><div class="faq-answer"><p>Yes! I offer both formal portrait sessions (pre-event) and full event coverage. Many clients book both. Reach out and we'll build the perfect package for your special day.</p></div></div>
-      <div class="faq-item reveal reveal-delay-1"><div class="faq-question" onclick="toggleFaq(this)"><h3>Do you offer payment plans?</h3><div class="faq-icon">+</div></div><div class="faq-answer"><p>Absolutely. A 50% deposit secures your date, with the remaining balance due the day of your session. For larger packages, custom plans can be arranged — just ask!</p></div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><h3>How do I book a session?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>Simply fill out the contact form or message me directly. I'll respond within 24–48 hours to confirm your date, discuss your vision, and send a booking agreement. A deposit is required to hold your date.</p></div></div>
+      <div class="faq-item reveal d1"><div class="faq-q" onclick="toggleFaq(this)"><h3>How far in advance should I book?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>I recommend booking 3–4 weeks ahead for portrait sessions, and 2–3 months for quinceañeras. Newborn sessions are best booked during your second trimester — we'll schedule near your due date and confirm once baby arrives.</p></div></div>
+      <div class="faq-item reveal d2"><div class="faq-q" onclick="toggleFaq(this)"><h3>Where will our session take place?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>Sessions can happen anywhere that's meaningful to you — parks, urban spots, your home, a studio. I'll help you find somewhere with great light and the right feel. Travel fees may apply beyond 30 miles.</p></div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><h3>When will I receive my photos?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>Most sessions are delivered within 1–2 weeks via a private online gallery. Newborn sessions may take up to 2 weeks. Rush delivery is available as an add-on.</p></div></div>
+      <div class="faq-item reveal d1"><div class="faq-q" onclick="toggleFaq(this)"><h3>What should we wear?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>I'll send a personalized style guide after booking. Coordinating tones look great for families — avoid busy patterns. Most importantly, wear something that makes you feel confident and like yourself.</p></div></div>
+      <div class="faq-item reveal d2"><div class="faq-q" onclick="toggleFaq(this)"><h3>What if it rains or we need to reschedule?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>Weather happens! If we need to reschedule due to weather, I'll find you a new date at no extra charge. I ask for at least 48 hours notice for non-weather reschedules.</p></div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><h3>Do you shoot quinceañera events AND portraits?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>Yes! I offer both formal portrait sessions (pre-event) and full event coverage. Many clients book both. Reach out and we'll build the perfect package for your special day.</p></div></div>
+      <div class="faq-item reveal d1"><div class="faq-q" onclick="toggleFaq(this)"><h3>Do you offer payment plans?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>Absolutely. A 50% deposit secures your date, with the remaining balance due the day of your session. For larger packages, custom plans can be arranged — just ask!</p></div></div>
     </div>
     <footer>
       <div class="footer-logo">Saul <span>Captures</span></div>
       <ul class="footer-links">
-        <li><a onclick="showPage('home')">Home</a></li>
-        <li><a onclick="showPage('gallery')">Gallery</a></li>
-        <li><a onclick="showPage('pricing')">Pricing</a></li>
-        <li><a onclick="showPage('contact')">Contact</a></li>
+        <li><a onclick="showPage('home')">Home</a></li><li><a onclick="showPage('gallery')">Gallery</a></li>
+        <li><a onclick="showPage('pricing')">Pricing</a></li><li><a onclick="showPage('contact')">Contact</a></li>
       </ul>
       <p class="footer-copy">© 2025 Saul Captures · All rights reserved</p>
     </footer>
@@ -805,10 +442,10 @@
   <!-- CONTACT -->
   <div class="page" id="page-contact">
     <div class="page-header">
-      <p class="section-eyebrow">Let's Connect</p>
-      <h2 class="section-title">Book Your Session</h2>
+      <p class="eyebrow">Let's Connect</p>
+      <h2 class="pg-title">Book Your Session</h2>
       <div class="divider"></div>
-      <p class="section-desc">Tell me about your vision and I'll be in touch within 24 hours.</p>
+      <p class="pg-desc">Tell me about your vision and I'll be in touch within 24 hours.</p>
     </div>
     <div class="contact-wrap">
       <form class="contact-form" onsubmit="handleSubmit(event)">
@@ -833,90 +470,68 @@
             <option>Other / Custom Package</option>
           </select>
         </div>
-        <div class="form-group"><label class="form-label">Ideal Date (Approximate)</label><input type="text" class="form-input" placeholder="e.g. June 2025, flexible..." /></div>
+        <div class="form-group"><label class="form-label">Ideal Date</label><input type="text" class="form-input" placeholder="e.g. June 2025, flexible..." /></div>
         <div class="form-group"><label class="form-label">Tell Me About Your Vision</label><textarea class="form-textarea" placeholder="Share any details — location ideas, number of people, special requests..."></textarea></div>
         <button type="submit" class="form-submit">Send My Inquiry →</button>
       </form>
       <div class="contact-info">
-        <div class="contact-info-item"><span class="ci-label">Email</span><span class="ci-value">hello@saulcaptures.com</span></div>
-        <div class="contact-info-item"><span class="ci-label">Instagram</span><span class="ci-value">@saulcaptures</span></div>
-        <div class="contact-info-item"><span class="ci-label">Response Time</span><span class="ci-value">Within 24–48 hours</span></div>
+        <div class="ci"><span class="ci-label">Email</span><span class="ci-value">hello@saulcaptures.com</span></div>
+        <div class="ci"><span class="ci-label">Instagram</span><span class="ci-value">@saulcaptures</span></div>
+        <div class="ci"><span class="ci-label">Response Time</span><span class="ci-value">Within 24–48 hours</span></div>
       </div>
     </div>
     <footer>
       <div class="footer-logo">Saul <span>Captures</span></div>
       <ul class="footer-links">
-        <li><a onclick="showPage('home')">Home</a></li>
-        <li><a onclick="showPage('gallery')">Gallery</a></li>
-        <li><a onclick="showPage('pricing')">Pricing</a></li>
-        <li><a onclick="showPage('faq')">FAQ</a></li>
+        <li><a onclick="showPage('home')">Home</a></li><li><a onclick="showPage('gallery')">Gallery</a></li>
+        <li><a onclick="showPage('pricing')">Pricing</a></li><li><a onclick="showPage('faq')">FAQ</a></li>
       </ul>
       <p class="footer-copy">© 2025 Saul Captures · All rights reserved</p>
     </footer>
   </div>
 
   <script>
-    // Cursor
-    const cursor = document.getElementById('cursor');
-    const ring   = document.getElementById('cursorRing');
+    const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
     let mx=0,my=0,rx=0,ry=0;
-    document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
-    (function loop(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
-    document.addEventListener('mouseover',e=>{ if(e.target.closest('a,button,.gallery-item,.faq-question,.gallery-tab')){ cursor.style.width='20px'; cursor.style.height='20px'; ring.style.width='52px'; ring.style.height='52px'; }});
-    document.addEventListener('mouseout', e=>{ if(e.target.closest('a,button,.gallery-item,.faq-question,.gallery-tab')){ cursor.style.width='12px'; cursor.style.height='12px'; ring.style.width='36px'; ring.style.height='36px'; }});
-
-    // Nav
-    window.addEventListener('scroll',()=>{ document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50); });
-
-    // Page switching
-    function showPage(id) {
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+    (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+    document.addEventListener('mouseover',e=>{if(e.target.closest('a,button,.gallery-item,.faq-q,.gallery-tab')){cursor.style.width='18px';cursor.style.height='18px';ring.style.width='48px';ring.style.height='48px';}});
+    document.addEventListener('mouseout',e=>{if(e.target.closest('a,button,.gallery-item,.faq-q,.gallery-tab')){cursor.style.width='10px';cursor.style.height='10px';ring.style.width='34px';ring.style.height='34px';}});
+    window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);});
+    function showPage(id){
       document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
       document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
-      const page = document.getElementById('page-'+id);
-      if(page){ page.classList.add('active'); window.scrollTo(0,0); }
-      const link = document.querySelector(`.nav-links a[data-page="${id}"]`);
-      if(link) link.classList.add('active');
-      setTimeout(triggerReveals, 60);
+      const pg=document.getElementById('page-'+id);
+      if(pg){pg.classList.add('active');window.scrollTo(0,0);}
+      const lk=document.querySelector('.nav-links a[data-page="'+id+'"]');
+      if(lk)lk.classList.add('active');
+      setTimeout(triggerReveals,60);
     }
-
-    // Reveal on scroll
-    function triggerReveals() {
-      const els = document.querySelectorAll('.page.active .reveal');
-      const obs = new IntersectionObserver(entries=>{
-        entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-      },{threshold:0.1});
-      els.forEach(el=>{ el.classList.remove('visible'); obs.observe(el); });
+    function triggerReveals(){
+      const els=document.querySelectorAll('.page.active .reveal');
+      const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+      els.forEach(el=>{el.classList.remove('visible');obs.observe(el);});
     }
     triggerReveals();
-
-    // Gallery tabs
-    function switchTab(id,btn) {
+    function switchTab(id,btn){
       document.querySelectorAll('.gallery-section').forEach(s=>s.classList.remove('active'));
       document.querySelectorAll('.gallery-tab').forEach(t=>t.classList.remove('active'));
       document.getElementById('tab-'+id).classList.add('active');
       btn.classList.add('active');
     }
-
-    // FAQ
-    function toggleFaq(el) {
-      const item = el.closest('.faq-item');
-      const isOpen = item.classList.contains('open');
+    function toggleFaq(el){
+      const item=el.closest('.faq-item'),isOpen=item.classList.contains('open');
       document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
-      if(!isOpen) item.classList.add('open');
+      if(!isOpen)item.classList.add('open');
     }
-
-    // Contact form
-    function handleSubmit(e) {
+    function handleSubmit(e){
       e.preventDefault();
-      const btn = e.target.querySelector('.form-submit');
-      btn.textContent = 'Inquiry Sent ✦';
-      btn.style.background = '#5A7A5A';
-      btn.disabled = true;
-      setTimeout(()=>{ btn.textContent='Send My Inquiry →'; btn.style.background=''; btn.disabled=false; e.target.reset(); },4000);
+      const btn=e.target.querySelector('.form-submit');
+      btn.textContent='Inquiry Sent ✦';btn.style.background='#4a7c4f';btn.disabled=true;
+      setTimeout(()=>{btn.textContent='Send My Inquiry →';btn.style.background='';btn.disabled=false;e.target.reset();},4000);
     }
-
-    const homeLink = document.querySelector('.nav-links a[data-page="home"]');
-    if(homeLink) homeLink.classList.add('active');
+    const hl=document.querySelector('.nav-links a[data-page="home"]');
+    if(hl)hl.classList.add('active');
   </script>
 </body>
 </html>
