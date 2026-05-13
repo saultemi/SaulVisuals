@@ -698,28 +698,29 @@
 
       <!--
       ╔════════════════════════════════════════════════════════════════════╗
-      ║  NETLIFY FORMS — Already wired up, nothing to change here.     ║
+      ║  TELEGRAM SETUP — 3 pasos, gratis para siempre                 ║
       ║                                                                ║
-      ║  TO DEPLOY:                                                    ║
-      ║    1. Drag this HTML file into app.netlify.com/drop            ║
-      ║    2. Netlify detects the form automatically                   ║
-      ║    3. Go to: Site → Forms → contact → Form notifications       ║
-      ║    4. Add a webhook URL (Telegram, SMS service, anything)      ║
-      ║       OR add an email to get notified that way                 ║
+      ║  PASO 1 — Crear el bot:                                        ║
+      ║    a) Descarga Telegram en tu teléfono                        ║
+      ║    b) Busca @BotFather y ábrelo                               ║
+      ║    c) Escribe /newbot → ponle nombre → copia el TOKEN          ║
       ║                                                                ║
-      ║  That's it. Every submission is stored in Netlify dashboard    ║
-      ║  and triggers your chosen notification instantly.              ║
+      ║  PASO 2 — Obtener tu Chat ID:                                  ║
+      ║    a) Busca tu nuevo bot y mándale cualquier mensaje           ║
+      ║    b) Abre en el navegador (con tu token real):                ║
+      ║       https://api.telegram.org/botTU_TOKEN/getUpdates          ║
+      ║    c) El número junto a "id" dentro de "chat" = tu CHAT_ID    ║
+      ║                                                                ║
+      ║  PASO 3 — Pega ambos abajo y listo.                           ║
+      ║    Cada solicitud llega instantánea a tu Telegram.            ║
       ╚════════════════════════════════════════════════════════════════════╝
       -->
 
-      <!-- THE FORM — data-netlify="true" makes Netlify catch all submissions -->
-      <form class="contact-form" id="contactForm"
-            name="contact"
-            method="POST"
-            data-netlify="true"
-            netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="contact" />
-        <input type="hidden" name="bot-field" />
+      <!-- ↓ PEGA TU INFO AQUÍ ↓ -->
+      <input type="hidden" id="tg_token"   value="8673339576:AAEFAHIjhMJPqxt2MsZX2COrTmaf8Z4b2bs" />
+      <input type="hidden" id="tg_chat_id" value="8139962647"   />
+
+      <form class="contact-form" id="contactForm">
 
         <div class="form-row">
           <div class="form-group"><label class="form-label" data-i="lbl_fname">Nombre</label><input type="text" name="nombre" id="f_fname" class="form-input" placeholder="María" required /></div>
@@ -852,7 +853,7 @@
     if(!isOpen)item.classList.add('open');
   }
 
-  // ── FORM SUBMISSION via Netlify Forms (AJAX — page stays, shows thank you) ──
+  // ── FORM SUBMISSION — Sends instantly to Telegram (free, no limits) ──
   async function handleSubmit(){
     const form      = document.getElementById('contactForm');
     const btn       = document.getElementById('submitBtn');
@@ -860,7 +861,10 @@
     const errorEl   = document.getElementById('formError');
     const isES      = document.documentElement.lang === 'es';
 
-    // Basic validation
+    const token   = document.getElementById('tg_token').value.trim();
+    const chat_id = document.getElementById('tg_chat_id').value.trim();
+
+    // Validation
     const fname = document.getElementById('f_fname').value.trim();
     const email = document.getElementById('f_email').value.trim();
     if(!fname || !email){
@@ -871,38 +875,78 @@
     }
     errorEl.classList.remove('show');
 
-    // Loading state
+    // Loading
     btn.classList.add('loading'); btn.disabled = true;
 
-    try {
-      // URLSearchParams encodes all named form fields for Netlify
-      const data = new FormData(form);
-      const res = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(data).toString()
-      });
+    const lname   = document.getElementById('f_lname').value.trim();
+    const phone   = document.getElementById('f_phone').value.trim();
+    const session = document.getElementById('f_session').value;
+    const date    = document.getElementById('f_date').value.trim();
+    const msg     = document.getElementById('f_msg').value.trim();
 
-      if(res.ok){
+    const text = isES
+      ? `📸 Nueva Solicitud — Saul Captures
+
+`
+        + `👤 Nombre: ${fname} ${lname}
+`
+        + `📧 Correo: ${email}
+`
+        + (phone   ? `📞 Teléfono: ${phone}
+`               : '')
+        + `🎯 Sesión: ${session || 'No especificado'}
+`
+        + `📅 Fecha: ${date    || 'No especificado'}
+`
+        + (msg     ? `
+💬 Mensaje:
+${msg}`                  : '')
+      : `📸 New Inquiry — Saul Captures
+
+`
+        + `👤 Name: ${fname} ${lname}
+`
+        + `📧 Email: ${email}
+`
+        + (phone   ? `📞 Phone: ${phone}
+`                   : '')
+        + `🎯 Session: ${session || 'Not specified'}
+`
+        + `📅 Date: ${date      || 'Not specified'}
+`
+        + (msg     ? `
+💬 Message:
+${msg}`                  : '');
+
+    // Preview mode — keys not set yet
+    if(token === 'YOUR_BOT_TOKEN' || chat_id === 'YOUR_CHAT_ID'){
+      form.style.display = 'none';
+      successEl.classList.add('show');
+      form.reset();
+      btn.classList.remove('loading'); btn.disabled = false;
+      return;
+    }
+
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id, text, parse_mode: '' })
+      });
+      const result = await res.json();
+
+      if(result.ok){
         form.style.display = 'none';
         successEl.classList.add('show');
         form.reset();
       } else {
-        throw new Error('server');
+        throw new Error(result.description || 'error');
       }
     } catch(err){
-      // When opened as a local file (not deployed) the fetch fails — show success anyway for preview
-      const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-      if(isLocal){
-        form.style.display = 'none';
-        successEl.classList.add('show');
-        form.reset();
-      } else {
-        errorEl.textContent = isES
-          ? 'Hubo un problema al enviar. Por favor intenta de nuevo.'
-          : 'Something went wrong. Please try again.';
-        errorEl.classList.add('show');
-      }
+      errorEl.textContent = isES
+        ? 'Hubo un problema al enviar. Por favor intenta de nuevo.'
+        : 'Something went wrong. Please try again.';
+      errorEl.classList.add('show');
     } finally {
       btn.classList.remove('loading'); btn.disabled = false;
     }
@@ -961,8 +1005,8 @@
       contact_submit:'Enviar mi Solicitud →',
       success_title:'¡Mensaje Enviado!',success_sub:'Gracias por tu solicitud. Te responderemos en las próximas 24–48 horas para confirmar todos los detalles de tu sesión.',
       error_msg:'Hubo un problema al enviar. Por favor intenta de nuevo.',
-      setup_title:'Formulario listo para Netlify:',
-      setup_body:' Sube el sitio a Netlify y cada solicitud se guarda automáticamente en tu dashboard. Ve a <strong>Site → Forms → contact → Notifications</strong> para activar alertas.',
+      setup_title:'Activa notificaciones a tu Telegram (gratis):',
+      setup_body:' Descarga Telegram → busca <strong>@BotFather</strong> → escribe <code>/newbot</code> → copia el token y tu chat ID → pégalos en el código. Cada solicitud llega instantáneamente a tu teléfono.',
       ci_response:'Tiempo de Respuesta',ci_response_val:'En 24–48 horas',
       footer_copy:'© 2025 Saul Captures · Todos los derechos reservados'
     },
@@ -1017,8 +1061,8 @@
       contact_submit:'Send My Inquiry →',
       success_title:'Message Sent!',success_sub:"Thank you for your inquiry. We'll be in touch within 24–48 hours to confirm all the details of your session.",
       error_msg:'Something went wrong. Please try again.',
-      setup_title:'Form ready for Netlify:',
-      setup_body:' Deploy to Netlify and every submission is captured automatically in your dashboard. Go to <strong>Site → Forms → contact → Notifications</strong> to set up alerts.',
+      setup_title:'Activate instant Telegram notifications (free):',
+      setup_body:' Download Telegram → find <strong>@BotFather</strong> → type <code>/newbot</code> → copy your token and chat ID → paste both into the code. Every inquiry hits your phone instantly.',
       ci_response:'Response Time',ci_response_val:'Within 24–48 hours',
       footer_copy:'© 2025 Saul Captures · All rights reserved'
     }
