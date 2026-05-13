@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Saul Captures | Photography</title>
+  <title>Saul Captures | Fotografía</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,11 +28,12 @@
     .cursor { width: 10px; height: 10px; background: var(--gold); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .3s, height .3s; }
     .cursor-ring { width: 34px; height: 34px; border: 1.5px solid var(--gold); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); opacity: .5; }
 
+    /* NAV */
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 26px 60px; transition: background .4s, padding .4s, box-shadow .4s; }
     nav.scrolled { background: rgba(250,248,244,.96); backdrop-filter: blur(12px); padding: 16px 60px; border-bottom: 1px solid var(--border); box-shadow: 0 2px 24px rgba(0,0,0,.06); }
     .nav-logo { font-family: var(--fd); font-size: 1.05rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
     .nav-logo span { color: var(--gold); }
-    .nav-links { display: flex; gap: 38px; list-style: none; }
+    .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
     .nav-links li a { font-family: var(--fu); font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); text-decoration: none; cursor: pointer; transition: color .3s; position: relative; }
     .nav-links li a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width .3s; }
     .nav-links li a:hover, .nav-links li a.active { color: var(--ink); }
@@ -41,10 +42,23 @@
     .nav-cta:hover { background: var(--gold) !important; }
     .nav-cta::after { display: none !important; }
 
+    /* Language toggle */
+    .lang-toggle { display: flex; align-items: center; gap: 2px; background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; padding: 3px; }
+    .lang-btn { font-family: var(--fu); font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; padding: 6px 12px; border: none; background: transparent; color: var(--muted); cursor: pointer; border-radius: 1px; transition: all .25s; }
+    .lang-btn.active { background: var(--gold); color: #fff; }
+
+    /* Social icons in nav */
+    .nav-social { display: flex; gap: 14px; align-items: center; }
+    .nav-social a { color: var(--muted); text-decoration: none; transition: color .3s; display: flex; align-items: center; }
+    .nav-social a:hover { color: var(--gold); }
+    .nav-social svg { width: 17px; height: 17px; fill: currentColor; }
+
+    /* PAGES */
     .page { display: none; min-height: 100vh; }
     .page.active { display: block; animation: pageIn .4s ease forwards; }
     @keyframes pageIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 
+    /* HERO */
     .hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
     .hero-video-wrap { position: absolute; inset: 0; z-index: 0; }
     .hero-video-wrap video { width: 100%; height: 100%; object-fit: cover; }
@@ -69,6 +83,7 @@
     .hero-scroll span { font-family: var(--fu); font-size: .58rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
     .scroll-line { width: 1px; height: 50px; background: linear-gradient(to bottom,var(--gold),transparent); animation: pulse 2s ease infinite; }
 
+    /* HOME SECTIONS */
     .home-about { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border); }
     .home-about-text { padding: 100px 80px; display: flex; flex-direction: column; justify-content: center; }
     .home-about-visual { background: var(--bg2); border-left: 1px solid var(--border); min-height: 520px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
@@ -80,12 +95,14 @@
     .stat-num { font-family: var(--fd); font-size: 2.6rem; color: var(--gold); line-height: 1; }
     .stat-label { font-family: var(--fu); font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
 
+    /* PAGE HEADERS */
     .page-header { padding: 160px 60px 80px; text-align: center; background: var(--bg2); border-bottom: 1px solid var(--border); }
     .eyebrow { font-family: var(--fu); font-size: .65rem; letter-spacing: .35em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
     .pg-title { font-family: var(--fd); font-size: clamp(2rem,4vw,3.2rem); font-weight: 400; letter-spacing: .05em; line-height: 1.15; color: var(--ink); }
     .divider { width: 50px; height: 1px; background: var(--gold); margin: 28px auto; }
     .pg-desc { font-family: var(--fb); font-size: 1.05rem; color: var(--muted); max-width: 540px; margin: 0 auto; font-weight: 300; line-height: 1.9; }
 
+    /* GALLERY */
     .gallery-wrap { padding: 60px; max-width: 1400px; margin: 0 auto; }
     .gallery-tabs { display: flex; gap: 3px; background: var(--bg2); padding: 4px; border: 1px solid var(--border); border-radius: 2px; margin-bottom: 48px; width: fit-content; }
     .gallery-tab { font-family: var(--fu); font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; padding: 11px 22px; cursor: pointer; border: none; background: transparent; color: var(--muted); transition: all .3s; border-radius: 1px; }
@@ -107,6 +124,7 @@
     .goverlay-icon { width: 48px; height: 48px; border: 1px solid rgba(255,255,255,.8); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.3rem; }
     .gcaption { font-family: var(--fb); font-style: italic; font-size: .95rem; color: var(--muted); text-align: center; margin-top: 24px; }
 
+    /* PRICING */
     .pricing-wrap { padding: 60px; max-width: 1200px; margin: 0 auto; }
     .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; margin-bottom: 60px; }
     .pricing-card { background: var(--card); border: 1px solid var(--border); padding: 48px 34px; position: relative; transition: border-color .3s, transform .3s, box-shadow .3s; }
@@ -133,6 +151,7 @@
     .p-footnote { text-align: center; font-family: var(--fb); font-size: .95rem; color: var(--muted); margin-top: 40px; font-style: italic; }
     .p-footnote a { color: var(--gold); text-decoration: none; cursor: pointer; }
 
+    /* FAQ */
     .faq-wrap { padding: 60px; max-width: 800px; margin: 0 auto; }
     .faq-item { border-bottom: 1px solid var(--border); }
     .faq-q { display: flex; justify-content: space-between; align-items: center; padding: 28px 0; cursor: pointer; gap: 20px; }
@@ -143,6 +162,7 @@
     .faq-item.open .faq-a { max-height: 300px; }
     .faq-a p { font-family: var(--fb); font-size: 1rem; color: var(--muted); padding-bottom: 28px; line-height: 1.9; }
 
+    /* CONTACT */
     .contact-wrap { padding: 60px; max-width: 700px; margin: 0 auto; }
     .contact-form { display: flex; flex-direction: column; gap: 16px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -155,30 +175,41 @@
     .form-textarea { resize: vertical; min-height: 120px; }
     .form-submit { font-family: var(--fu); font-size: .73rem; letter-spacing: .2em; text-transform: uppercase; background: var(--ink); color: var(--bg); border: none; padding: 18px; cursor: pointer; transition: background .3s, transform .2s; border-radius: 1px; margin-top: 6px; }
     .form-submit:hover { background: var(--gold); transform: translateY(-1px); }
+    .sms-note { font-family: var(--fb); font-size: .88rem; color: var(--muted); font-style: italic; text-align: center; margin-top: 12px; }
     .contact-info { display: flex; justify-content: center; gap: 48px; margin-top: 60px; padding-top: 48px; border-top: 1px solid var(--border); flex-wrap: wrap; }
     .ci { display: flex; flex-direction: column; align-items: center; gap: 6px; }
     .ci-label { font-family: var(--fu); font-size: .58rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
     .ci-value { font-family: var(--fb); font-size: 1rem; color: var(--muted); }
+    .ci-value a { color: var(--muted); text-decoration: none; }
+    .ci-value a:hover { color: var(--gold); }
 
+    /* FOOTER */
     footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 40px 60px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
     .footer-logo { font-family: var(--fd); font-size: .9rem; letter-spacing: .2em; color: var(--ink); }
     .footer-logo span { color: var(--gold); }
-    .footer-links { display: flex; gap: 30px; list-style: none; }
+    .footer-links { display: flex; gap: 30px; list-style: none; align-items: center; }
     .footer-links a { font-family: var(--fu); font-size: .62rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); text-decoration: none; cursor: pointer; transition: color .3s; }
     .footer-links a:hover { color: var(--gold); }
-    .footer-copy { font-family: var(--fu); font-size: .58rem; color: var(--border2); letter-spacing: .1em; }
+    .footer-social { display: flex; gap: 16px; align-items: center; }
+    .footer-social a { color: var(--muted); text-decoration: none; transition: color .3s; display: flex; align-items: center; }
+    .footer-social a:hover { color: var(--gold); }
+    .footer-social svg { width: 18px; height: 18px; fill: currentColor; }
+    .footer-copy { font-family: var(--fu); font-size: .58rem; color: var(--border2); letter-spacing: .1em; width: 100%; text-align: center; padding-top: 20px; border-top: 1px solid var(--border); }
 
+    /* ABOUT TEXT HELPERS */
     .ae { font-family: var(--fu); font-size: .65rem; letter-spacing: .35em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
     .at { font-family: var(--fd); font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 400; letter-spacing: .04em; line-height: 1.2; color: var(--ink); }
     .adiv { width: 50px; height: 1px; background: var(--gold); margin: 24px 0; }
     .ad { font-family: var(--fb); font-size: 1.05rem; color: var(--muted); font-weight: 300; line-height: 1.9; }
 
+    /* ANIMATIONS */
     @keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
     @keyframes pulse  { 0%,100%{opacity:.4;} 50%{opacity:1;} }
     .reveal { opacity: 0; transform: translateY(26px); transition: opacity .65s ease, transform .65s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .d1{transition-delay:.1s;} .d2{transition-delay:.2s;} .d3{transition-delay:.3s;}
 
+    /* MOBILE */
     @media(max-width:900px){
       nav{padding:18px 20px;} nav.scrolled{padding:12px 20px;}
       .nav-links{display:none;}
@@ -186,7 +217,7 @@
       .home-about-text{padding:60px 24px;}
       .pricing-grid{grid-template-columns:1fr;}
       .gallery-wrap,.pricing-wrap,.faq-wrap,.contact-wrap{padding:40px 20px;}
-      .g3,.gallery-section .g3{grid-template-columns:repeat(2,1fr);}
+      .g3{grid-template-columns:repeat(2,1fr);}
       .gallery-item.wide{grid-column:span 1;}
       .form-row{grid-template-columns:1fr;}
       footer{padding:28px 20px;flex-direction:column;align-items:flex-start;}
@@ -203,26 +234,33 @@
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
+  <!-- NAV -->
   <nav id="navbar">
     <span class="nav-logo" onclick="showPage('home')">Saul <span>Captures</span></span>
     <ul class="nav-links">
-      <li><a onclick="showPage('home')"    data-page="home">Home</a></li>
-      <li><a onclick="showPage('gallery')" data-page="gallery">Gallery</a></li>
-      <li><a onclick="showPage('pricing')" data-page="pricing">Pricing</a></li>
-      <li><a onclick="showPage('faq')"     data-page="faq">FAQ</a></li>
-      <li><a onclick="showPage('contact')" data-page="contact" class="nav-cta">Book Now</a></li>
+      <li><a onclick="showPage('home')"    data-page="home"    data-i="nav_home">Inicio</a></li>
+      <li><a onclick="showPage('gallery')" data-page="gallery" data-i="nav_gallery">Galería</a></li>
+      <li><a onclick="showPage('pricing')" data-page="pricing" data-i="nav_pricing">Precios</a></li>
+      <li><a onclick="showPage('faq')"     data-page="faq"     data-i="nav_faq">FAQ</a></li>
+      <li>
+        <div class="lang-toggle">
+          <button class="lang-btn" onclick="setLang('es')" id="btn-es">ES</button>
+          <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+        </div>
+      </li>
+      <li><a onclick="showPage('contact')" data-page="contact" data-i="nav_book" class="nav-cta">Reservar</a></li>
     </ul>
   </nav>
 
-  <!-- HOME -->
+  <!-- ═══ HOME ═══ -->
   <div class="page active" id="page-home">
     <div class="hero">
       <div class="hero-video-wrap">
         <!--
-          HOW TO ADD YOUR VIDEO:
-          1. Delete the hero-video-placeholder div below.
-          2. Uncomment the video tag.
-          3. Replace YOUR_VIDEO.mp4 with your actual file path.
+          CÓMO AGREGAR TU VIDEO / HOW TO ADD YOUR VIDEO:
+          1. Borra el div hero-video-placeholder de abajo.
+          2. Descomenta el tag <video>.
+          3. Reemplaza YOUR_VIDEO.mp4 con la ruta de tu archivo.
 
           <video autoplay muted loop playsinline>
             <source src="YOUR_VIDEO.mp4" type="video/mp4" />
@@ -230,308 +268,592 @@
         -->
         <div class="hero-video-placeholder">
           <div class="ph-icon">🎬</div>
-          <div class="ph-label">Video Background</div>
-          <div class="ph-hint">Replace this with your video — see the code comment above.</div>
+          <div class="ph-label" data-i="hero_video_label">Fondo de Video</div>
+          <div class="ph-hint" data-i="hero_video_hint">Reemplaza esto con tu video — ve el comentario en el código.</div>
         </div>
       </div>
       <div class="hero-overlay"></div>
       <div class="hero-line left"></div>
       <div class="hero-line right"></div>
       <div class="hero-content">
-        <p class="hero-eyebrow">Portrait &amp; Lifestyle Photography</p>
-        <h1 class="hero-title">Every Frame<br/><em>Tells a Story</em></h1>
-        <p class="hero-sub">Quinceañeras · Sessions · Newborns · Family Portraits</p>
+        <p class="hero-eyebrow" data-i="hero_eyebrow">Fotografía de Retratos y Estilo de Vida</p>
+        <h1 class="hero-title">Cada Foto<br/><em data-i="hero_title_em">Cuenta una Historia</em></h1>
+        <p class="hero-sub" data-i="hero_sub">Quinceañeras · Sesiones · Recién Nacidos · Retratos Familiares</p>
         <div class="hero-actions">
-          <button class="btn-primary" onclick="showPage('gallery')">View Gallery</button>
-          <button class="btn-ghost"   onclick="showPage('contact')">Book a Session</button>
+          <button class="btn-primary" onclick="showPage('gallery')" data-i="hero_btn1">Ver Galería</button>
+          <button class="btn-ghost"   onclick="showPage('contact')" data-i="hero_btn2">Reservar Sesión</button>
         </div>
       </div>
-      <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
+      <div class="hero-scroll"><span data-i="scroll_label">Deslizar</span><div class="scroll-line"></div></div>
     </div>
 
     <div class="home-about">
       <div class="home-about-text reveal">
-        <p class="ae">About Saul</p>
-        <h2 class="at">Capturing Your Most<br/>Precious Moments</h2>
+        <p class="ae" data-i="about_eyebrow">Sobre Saul</p>
+        <h2 class="at" data-i="about_title">Capturando Tus Momentos<br/>Más Preciados</h2>
         <div class="adiv"></div>
-        <p class="ad">I believe every family, every milestone, every laugh deserves to be preserved with intention and artistry. From the quiet tenderness of a newborn to the joy of a quinceañera, I'm here to tell your story — beautifully and authentically.</p>
-        <p class="ad" style="margin-top:16px;">Working with natural light and a genuine love for people, I create images that feel timeless — photographs you'll pass down for generations.</p>
-        <div style="margin-top:36px;"><button class="btn-primary" onclick="showPage('gallery')">Explore the Gallery</button></div>
+        <p class="ad" data-i="about_p1">Creo que cada familia, cada logro, cada risa merece ser preservada con intención y arte. Desde la ternura de un recién nacido hasta la alegría de una quinceañera, estoy aquí para contar tu historia — de manera bella y auténtica.</p>
+        <p class="ad" style="margin-top:16px;" data-i="about_p2">Trabajando con luz natural y un amor genuino por las personas, creo imágenes que se sienten eternas — fotografías que pasarás de generación en generación.</p>
+        <div style="margin-top:36px;"><button class="btn-primary" onclick="showPage('gallery')" data-i="about_btn">Explorar la Galería</button></div>
       </div>
       <div class="home-about-visual">
         <div class="about-ph-icon">📷</div>
-        <p class="about-ph-text">Your portrait here</p>
+        <p class="about-ph-text" data-i="about_photo_ph">Tu retrato aquí</p>
       </div>
     </div>
 
     <div class="home-stats">
-      <div class="home-stat reveal">   <div class="stat-num">300+</div><div class="stat-label">Sessions Completed</div></div>
-      <div class="home-stat reveal d1"><div class="stat-num">100%</div><div class="stat-label">Client Satisfaction</div></div>
-      <div class="home-stat reveal d2"><div class="stat-num">4</div>   <div class="stat-label">Specialties</div></div>
-      <div class="home-stat reveal d3"><div class="stat-num">5+</div>  <div class="stat-label">Years Experience</div></div>
+      <div class="home-stat reveal">   <div class="stat-num">300+</div><div class="stat-label" data-i="stat1">Sesiones Completadas</div></div>
+      <div class="home-stat reveal d1"><div class="stat-num">100%</div><div class="stat-label" data-i="stat2">Satisfacción del Cliente</div></div>
+      <div class="home-stat reveal d2"><div class="stat-num">4</div>   <div class="stat-label" data-i="stat3">Especialidades</div></div>
+      <div class="home-stat reveal d3"><div class="stat-num">5+</div>  <div class="stat-label" data-i="stat4">Años de Experiencia</div></div>
     </div>
 
     <footer>
       <div class="footer-logo">Saul <span>Captures</span></div>
       <ul class="footer-links">
-        <li><a onclick="showPage('gallery')">Gallery</a></li>
-        <li><a onclick="showPage('pricing')">Pricing</a></li>
-        <li><a onclick="showPage('faq')">FAQ</a></li>
-        <li><a onclick="showPage('contact')">Contact</a></li>
+        <li><a onclick="showPage('gallery')" data-i="nav_gallery">Galería</a></li>
+        <li><a onclick="showPage('pricing')" data-i="nav_pricing">Precios</a></li>
+        <li><a onclick="showPage('faq')" data-i="nav_faq">FAQ</a></li>
+        <li><a onclick="showPage('contact')" data-i="nav_book">Reservar</a></li>
       </ul>
-      <p class="footer-copy">© 2025 Saul Captures · All rights reserved</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/fotografonyc1/" target="_blank" title="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@saultemifotos" target="_blank" title="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.54V6.78a4.85 4.85 0 01-1.02-.09z"/></svg>
+        </a>
+      </div>
+      <p class="footer-copy" data-i="footer_copy">© 2025 Saul Captures · Todos los derechos reservados</p>
     </footer>
   </div>
 
-  <!-- GALLERY -->
+  <!-- ═══ GALLERY ═══ -->
   <div class="page" id="page-gallery">
     <div class="page-header">
-      <p class="eyebrow">Portfolio</p>
-      <h2 class="pg-title">The Gallery</h2>
+      <p class="eyebrow" data-i="gallery_eyebrow">Portafolio</p>
+      <h2 class="pg-title" data-i="gallery_title">La Galería</h2>
       <div class="divider"></div>
-      <p class="pg-desc">A curated selection of sessions — browse by category below.</p>
+      <p class="pg-desc" data-i="gallery_desc">Una selección de sesiones — navega por categoría abajo.</p>
     </div>
     <div class="gallery-wrap">
       <div class="gallery-tabs">
-        <button class="gallery-tab active" onclick="switchTab('quince',this)">Quinceañeras</button>
-        <button class="gallery-tab" onclick="switchTab('sessions',this)">Sessions</button>
-        <button class="gallery-tab" onclick="switchTab('baby',this)">Baby &amp; Newborn</button>
-        <button class="gallery-tab" onclick="switchTab('family',this)">Family</button>
+        <button class="gallery-tab active" onclick="switchTab('quince',this)" data-i="tab_quince">Quinceañeras</button>
+        <button class="gallery-tab" onclick="switchTab('sessions',this)" data-i="tab_sessions">Sesiones</button>
+        <button class="gallery-tab" onclick="switchTab('baby',this)" data-i="tab_baby">Bebé y Recién Nacido</button>
+        <button class="gallery-tab" onclick="switchTab('family',this)" data-i="tab_family">Familia</button>
       </div>
 
       <div class="gallery-section active" id="tab-quince">
         <div class="gallery-grid g3">
-          <div class="gallery-item tall"><div class="gph tall-ph"><div class="gp-icon">👗</div><div class="gp-text">Gown Portrait</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gph"><div class="gp-icon">💐</div><div class="gp-text">Florals Detail</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gph"><div class="gp-icon">✨</div><div class="gp-text">Crown Moment</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
-          <div class="gallery-item wide"><div class="gph" style="min-height:220px"><div class="gp-icon">🎊</div><div class="gp-text">Full Court</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gph"><div class="gp-icon">🌸</div><div class="gp-text">Garden Session</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gph"><div class="gp-icon">💃</div><div class="gp-text">First Dance</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item tall"><div class="gph tall-ph"><div class="gp-icon">👗</div><div class="gp-text" data-i="g_q1">Retrato de Vestido</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">💐</div><div class="gp-text" data-i="g_q2">Detalle Floral</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">✨</div><div class="gp-text" data-i="g_q3">Momento de la Corona</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item wide"><div class="gph" style="min-height:220px"><div class="gp-icon">🎊</div><div class="gp-text" data-i="g_q4">Toda la Corte</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🌸</div><div class="gp-text" data-i="g_q5">Sesión en Jardín</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">💃</div><div class="gp-text" data-i="g_q6">Primer Vals</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
         </div>
-        <p class="gcaption">Each session unique, each story unforgettable.</p>
+        <p class="gcaption" data-i="g_quince_caption">Cada sesión única, cada historia inolvidable.</p>
       </div>
 
       <div class="gallery-section" id="tab-sessions">
         <div class="gallery-grid g3">
-          <div class="gallery-item tall"><div class="gph tall-ph"><div class="gp-icon">🌅</div><div class="gp-text">Golden Hour</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gph"><div class="gp-icon">🪴</div><div class="gp-text">Studio Session</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gph"><div class="gp-icon">🌿</div><div class="gp-text">Natural Light</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gph"><div class="gp-icon">🏙️</div><div class="gp-text">Urban Editorial</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gph"><div class="gp-icon">🎓</div><div class="gp-text">Graduation</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item tall"><div class="gph tall-ph"><div class="gp-icon">🌅</div><div class="gp-text" data-i="g_s1">Hora Dorada</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🪴</div><div class="gp-text" data-i="g_s2">Sesión de Estudio</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🌿</div><div class="gp-text" data-i="g_s3">Luz Natural</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🏙️</div><div class="gp-text" data-i="g_s4">Urbano Editorial</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🎓</div><div class="gp-text" data-i="g_s5">Graduación</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
         </div>
-        <p class="gcaption">Personalized sessions crafted around your style and vision.</p>
+        <p class="gcaption" data-i="g_sessions_caption">Sesiones personalizadas alrededor de tu estilo y visión.</p>
       </div>
 
       <div class="gallery-section" id="tab-baby">
         <div class="gallery-grid g3">
-          <div class="gallery-item"><div class="gph"><div class="gp-icon">👶</div><div class="gp-text">Newborn Wrap</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
-          <div class="gallery-item tall"><div class="gph tall-ph"><div class="gp-icon">🍼</div><div class="gp-text">Basket Pose</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gph"><div class="gp-icon">🌙</div><div class="gp-text">Sleepy Newborn</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gph"><div class="gp-icon">🎂</div><div class="gp-text">Cake Smash</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gph"><div class="gp-icon">🧸</div><div class="gp-text">6-Month Milestone</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">👶</div><div class="gp-text" data-i="g_b1">Recién Nacido Envuelto</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item tall"><div class="gph tall-ph"><div class="gp-icon">🍼</div><div class="gp-text" data-i="g_b2">Pose en Canasta</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🌙</div><div class="gp-text" data-i="g_b3">Bebé Dormilón</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🎂</div><div class="gp-text" data-i="g_b4">Primer Pastel</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🧸</div><div class="gp-text" data-i="g_b5">6 Meses</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
         </div>
-        <p class="gcaption">Gentle and tender — capturing the miracle of new life.</p>
+        <p class="gcaption" data-i="g_baby_caption">Delicado y tierno — capturando el milagro de la nueva vida.</p>
       </div>
 
       <div class="gallery-section" id="tab-family">
         <div class="gallery-grid g3">
-          <div class="gallery-item wide"><div class="gph" style="min-height:240px"><div class="gp-icon">👨‍👩‍👧‍👦</div><div class="gp-text">Sunset Field</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
-          <div class="gallery-item tall"><div class="gph tall-ph"><div class="gp-icon">🤗</div><div class="gp-text">Candid Moments</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gph"><div class="gp-icon">🌳</div><div class="gp-text">Park Session</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gph"><div class="gp-icon">❤️</div><div class="gp-text">Holiday Mini</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
-          <div class="gallery-item"><div class="gph"><div class="gp-icon">🎄</div><div class="gp-text">Christmas Session</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item wide"><div class="gph" style="min-height:240px"><div class="gp-icon">👨‍👩‍👧‍👦</div><div class="gp-text" data-i="g_f1">Atardecer en el Campo</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item tall"><div class="gph tall-ph"><div class="gp-icon">🤗</div><div class="gp-text" data-i="g_f2">Momentos Espontáneos</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🌳</div><div class="gp-text" data-i="g_f3">Sesión en el Parque</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">❤️</div><div class="gp-text" data-i="g_f4">Mini Sesión Festiva</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
+          <div class="gallery-item"><div class="gph"><div class="gp-icon">🎄</div><div class="gp-text" data-i="g_f5">Sesión Navideña</div></div><div class="goverlay"><div class="goverlay-icon">+</div></div></div>
         </div>
-        <p class="gcaption">Family portraits full of laughter, warmth, and real connection.</p>
+        <p class="gcaption" data-i="g_family_caption">Retratos familiares llenos de risas, calidez y conexión real.</p>
       </div>
     </div>
     <footer>
       <div class="footer-logo">Saul <span>Captures</span></div>
       <ul class="footer-links">
-        <li><a onclick="showPage('home')">Home</a></li><li><a onclick="showPage('pricing')">Pricing</a></li>
-        <li><a onclick="showPage('faq')">FAQ</a></li><li><a onclick="showPage('contact')">Contact</a></li>
+        <li><a onclick="showPage('home')" data-i="nav_home">Inicio</a></li>
+        <li><a onclick="showPage('pricing')" data-i="nav_pricing">Precios</a></li>
+        <li><a onclick="showPage('faq')" data-i="nav_faq">FAQ</a></li>
+        <li><a onclick="showPage('contact')" data-i="nav_book">Reservar</a></li>
       </ul>
-      <p class="footer-copy">© 2025 Saul Captures · All rights reserved</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/fotografonyc1/" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="https://www.tiktok.com/@saultemifotos" target="_blank"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.54V6.78a4.85 4.85 0 01-1.02-.09z"/></svg></a>
+      </div>
+      <p class="footer-copy" data-i="footer_copy">© 2025 Saul Captures · Todos los derechos reservados</p>
     </footer>
   </div>
 
-  <!-- PRICING -->
+  <!-- ═══ PRICING ═══ -->
   <div class="page" id="page-pricing">
     <div class="page-header">
-      <p class="eyebrow">Investment</p>
-      <h2 class="pg-title">Simple, Transparent Pricing</h2>
+      <p class="eyebrow" data-i="pricing_eyebrow">Inversión</p>
+      <h2 class="pg-title" data-i="pricing_title">Precios Simples y Transparentes</h2>
       <div class="divider"></div>
-      <p class="pg-desc">Each package is thoughtfully designed — no hidden fees, no surprises.</p>
+      <p class="pg-desc" data-i="pricing_desc">Cada paquete está diseñado cuidadosamente — sin costos ocultos, sin sorpresas.</p>
     </div>
     <div class="pricing-wrap">
       <div class="pricing-grid">
         <div class="pricing-card reveal d1">
-          <p class="p-session">Portrait Session</p><h3 class="p-name">Essential</h3>
-          <div class="p-price"><sup>$</sup>150</div><p class="p-note">Starting price · 1 hour</p>
+          <p class="p-session" data-i="pkg1_type">Sesión de Retrato</p>
+          <h3 class="p-name" data-i="pkg1_name">Esencial</h3>
+          <div class="p-price"><sup>$</sup>150</div>
+          <p class="p-note" data-i="pkg1_note">Precio inicial · 1 hora</p>
           <div class="p-div"></div>
-          <ul class="p-features"><li>1-hour session</li><li>1 location</li><li>1 outfit change</li><li>15 edited digital photos</li><li>Online gallery delivery</li><li>2-week turnaround</li></ul>
-          <button class="p-cta" onclick="showPage('contact')">Book This Package</button>
+          <ul class="p-features">
+            <li data-i="f1_1">Sesión de 1 hora</li>
+            <li data-i="f1_2">1 locación</li>
+            <li data-i="f1_3">1 cambio de ropa</li>
+            <li data-i="f1_4">15 fotos digitales editadas</li>
+            <li data-i="f1_5">Galería en línea</li>
+            <li data-i="f1_6">Entrega en 2 semanas</li>
+          </ul>
+          <button class="p-cta" onclick="showPage('contact')" data-i="pkg_btn">Reservar este Paquete</button>
         </div>
         <div class="pricing-card featured reveal d2">
-          <div class="p-badge">Most Popular</div>
-          <p class="p-session">Family / Quinceañera</p><h3 class="p-name">Signature</h3>
-          <div class="p-price"><sup>$</sup>350</div><p class="p-note">Starting price · 2–3 hours</p>
+          <div class="p-badge" data-i="popular_badge">Más Popular</div>
+          <p class="p-session" data-i="pkg2_type">Familia / Quinceañera</p>
+          <h3 class="p-name" data-i="pkg2_name">Signature</h3>
+          <div class="p-price"><sup>$</sup>350</div>
+          <p class="p-note" data-i="pkg2_note">Precio inicial · 2–3 horas</p>
           <div class="p-div"></div>
-          <ul class="p-features"><li>2–3 hour session</li><li>Up to 2 locations</li><li>Multiple outfit changes</li><li>40 edited digital photos</li><li>Private online gallery</li><li>1-week turnaround</li><li>1 printed 8×10 included</li></ul>
-          <button class="p-cta" onclick="showPage('contact')">Book This Package</button>
+          <ul class="p-features">
+            <li data-i="f2_1">Sesión de 2–3 horas</li>
+            <li data-i="f2_2">Hasta 2 locaciones</li>
+            <li data-i="f2_3">Múltiples cambios de ropa</li>
+            <li data-i="f2_4">40 fotos digitales editadas</li>
+            <li data-i="f2_5">Galería privada en línea</li>
+            <li data-i="f2_6">Entrega en 1 semana</li>
+            <li data-i="f2_7">1 impresión 8×10 incluida</li>
+          </ul>
+          <button class="p-cta" onclick="showPage('contact')" data-i="pkg_btn">Reservar este Paquete</button>
         </div>
         <div class="pricing-card reveal d3">
-          <p class="p-session">Newborn / Baby</p><h3 class="p-name">Newborn</h3>
-          <div class="p-price"><sup>$</sup>250</div><p class="p-note">Starting price · Up to 2 hours</p>
+          <p class="p-session" data-i="pkg3_type">Recién Nacido / Bebé</p>
+          <h3 class="p-name" data-i="pkg3_name">Newborn</h3>
+          <div class="p-price"><sup>$</sup>250</div>
+          <p class="p-note" data-i="pkg3_note">Precio inicial · Hasta 2 horas</p>
           <div class="p-div"></div>
-          <ul class="p-features"><li>Up to 2-hour gentle session</li><li>Studio or in-home option</li><li>Multiple setups &amp; wraps</li><li>25 edited digital photos</li><li>Private online gallery</li><li>10-day turnaround</li><li>Sibling/parent photos included</li></ul>
-          <button class="p-cta" onclick="showPage('contact')">Book This Package</button>
+          <ul class="p-features">
+            <li data-i="f3_1">Sesión delicada de hasta 2 horas</li>
+            <li data-i="f3_2">Opción de estudio o en casa</li>
+            <li data-i="f3_3">Múltiples poses y envoltorios</li>
+            <li data-i="f3_4">25 fotos digitales editadas</li>
+            <li data-i="f3_5">Galería privada en línea</li>
+            <li data-i="f3_6">Entrega en 10 días</li>
+            <li data-i="f3_7">Fotos con hermanos/padres incluidas</li>
+          </ul>
+          <button class="p-cta" onclick="showPage('contact')" data-i="pkg_btn">Reservar este Paquete</button>
         </div>
       </div>
       <div class="extras reveal">
-        <h3 class="extras-title">À La Carte Add-Ons</h3>
+        <h3 class="extras-title" data-i="extras_title">Servicios Adicionales</h3>
         <table class="extras-table">
-          <tr><td>Additional edited photo</td><td>$8 each</td></tr>
-          <tr><td>Rush delivery (48–72 hours)</td><td>$75</td></tr>
-          <tr><td>Extra hour of shooting</td><td>$100</td></tr>
-          <tr><td>Travel fee (beyond 30 miles)</td><td>$0.65/mile</td></tr>
-          <tr><td>8×10 print</td><td>$20</td></tr>
-          <tr><td>Canvas print (16×20)</td><td>$85</td></tr>
-          <tr><td>Holiday mini session (30 min)</td><td>$100</td></tr>
+          <tr><td data-i="ex1">Foto editada adicional</td><td>$8 c/u</td></tr>
+          <tr><td data-i="ex2">Entrega urgente (48–72 horas)</td><td>$75</td></tr>
+          <tr><td data-i="ex3">Hora extra de sesión</td><td>$100</td></tr>
+          <tr><td data-i="ex4">Viaje (más de 30 millas)</td><td>$0.65/milla</td></tr>
+          <tr><td data-i="ex5">Impresión 8×10</td><td>$20</td></tr>
+          <tr><td data-i="ex6">Impresión en lienzo (16×20)</td><td>$85</td></tr>
+          <tr><td data-i="ex7">Mini sesión festiva (30 min)</td><td>$100</td></tr>
         </table>
-        <p class="p-footnote">All prices are starting rates. Custom packages available — <a onclick="showPage('contact')">reach out to chat.</a></p>
+        <p class="p-footnote"><span data-i="extras_note">Todos los precios son iniciales. Paquetes personalizados disponibles —</span> <a onclick="showPage('contact')" data-i="extras_link">contáctanos para hablar.</a></p>
       </div>
     </div>
     <footer>
       <div class="footer-logo">Saul <span>Captures</span></div>
       <ul class="footer-links">
-        <li><a onclick="showPage('home')">Home</a></li><li><a onclick="showPage('gallery')">Gallery</a></li>
-        <li><a onclick="showPage('faq')">FAQ</a></li><li><a onclick="showPage('contact')">Contact</a></li>
+        <li><a onclick="showPage('home')" data-i="nav_home">Inicio</a></li>
+        <li><a onclick="showPage('gallery')" data-i="nav_gallery">Galería</a></li>
+        <li><a onclick="showPage('faq')" data-i="nav_faq">FAQ</a></li>
+        <li><a onclick="showPage('contact')" data-i="nav_book">Reservar</a></li>
       </ul>
-      <p class="footer-copy">© 2025 Saul Captures · All rights reserved</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/fotografonyc1/" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="https://www.tiktok.com/@saultemifotos" target="_blank"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.54V6.78a4.85 4.85 0 01-1.02-.09z"/></svg></a>
+      </div>
+      <p class="footer-copy" data-i="footer_copy">© 2025 Saul Captures · Todos los derechos reservados</p>
     </footer>
   </div>
 
-  <!-- FAQ -->
+  <!-- ═══ FAQ ═══ -->
   <div class="page" id="page-faq">
     <div class="page-header">
-      <p class="eyebrow">Common Questions</p>
-      <h2 class="pg-title">Frequently Asked Questions</h2>
+      <p class="eyebrow" data-i="faq_eyebrow">Preguntas Frecuentes</p>
+      <h2 class="pg-title" data-i="faq_title">Preguntas Frecuentes</h2>
       <div class="divider"></div>
-      <p class="pg-desc">Everything you need to know before booking your session.</p>
+      <p class="pg-desc" data-i="faq_desc">Todo lo que necesitas saber antes de reservar tu sesión.</p>
     </div>
     <div class="faq-wrap">
-      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><h3>How do I book a session?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>Simply fill out the contact form or message me directly. I'll respond within 24–48 hours to confirm your date, discuss your vision, and send a booking agreement. A deposit is required to hold your date.</p></div></div>
-      <div class="faq-item reveal d1"><div class="faq-q" onclick="toggleFaq(this)"><h3>How far in advance should I book?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>I recommend booking 3–4 weeks ahead for portrait sessions, and 2–3 months for quinceañeras. Newborn sessions are best booked during your second trimester — we'll schedule near your due date and confirm once baby arrives.</p></div></div>
-      <div class="faq-item reveal d2"><div class="faq-q" onclick="toggleFaq(this)"><h3>Where will our session take place?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>Sessions can happen anywhere that's meaningful to you — parks, urban spots, your home, a studio. I'll help you find somewhere with great light and the right feel. Travel fees may apply beyond 30 miles.</p></div></div>
-      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><h3>When will I receive my photos?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>Most sessions are delivered within 1–2 weeks via a private online gallery. Newborn sessions may take up to 2 weeks. Rush delivery is available as an add-on.</p></div></div>
-      <div class="faq-item reveal d1"><div class="faq-q" onclick="toggleFaq(this)"><h3>What should we wear?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>I'll send a personalized style guide after booking. Coordinating tones look great for families — avoid busy patterns. Most importantly, wear something that makes you feel confident and like yourself.</p></div></div>
-      <div class="faq-item reveal d2"><div class="faq-q" onclick="toggleFaq(this)"><h3>What if it rains or we need to reschedule?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>Weather happens! If we need to reschedule due to weather, I'll find you a new date at no extra charge. I ask for at least 48 hours notice for non-weather reschedules.</p></div></div>
-      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><h3>Do you shoot quinceañera events AND portraits?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>Yes! I offer both formal portrait sessions (pre-event) and full event coverage. Many clients book both. Reach out and we'll build the perfect package for your special day.</p></div></div>
-      <div class="faq-item reveal d1"><div class="faq-q" onclick="toggleFaq(this)"><h3>Do you offer payment plans?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p>Absolutely. A 50% deposit secures your date, with the remaining balance due the day of your session. For larger packages, custom plans can be arranged — just ask!</p></div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><h3 data-i="faq1_q">¿Cómo reservo una sesión?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p data-i="faq1_a">Simplemente llena el formulario de contacto o envíame un mensaje. Responderé en 24–48 horas para confirmar tu fecha, hablar sobre tu visión y enviarte el acuerdo de reserva. Se requiere un depósito para asegurar tu fecha.</p></div></div>
+      <div class="faq-item reveal d1"><div class="faq-q" onclick="toggleFaq(this)"><h3 data-i="faq2_q">¿Con cuánto tiempo de anticipación debo reservar?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p data-i="faq2_a">Para sesiones de retrato recomiendo reservar con 3–4 semanas de anticipación, y 2–3 meses para quinceañeras. Para recién nacidos, lo ideal es reservar durante el segundo trimestre del embarazo — coordinamos cerca de la fecha de parto y confirmamos cuando llegue el bebé.</p></div></div>
+      <div class="faq-item reveal d2"><div class="faq-q" onclick="toggleFaq(this)"><h3 data-i="faq3_q">¿Dónde será la sesión?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p data-i="faq3_a">La sesión puede ser en el lugar que prefieras — parques, áreas urbanas, tu hogar, un estudio, o cualquier lugar significativo. Te ayudaré a elegir un lugar con buena luz y el ambiente correcto. Pueden aplicar tarifas de viaje más de 30 millas.</p></div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><h3 data-i="faq4_q">¿Cuándo recibiré mis fotos?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p data-i="faq4_a">La mayoría de las sesiones se entregan en 1–2 semanas a través de una galería privada en línea. Las sesiones de recién nacidos pueden tardar hasta 2 semanas. La entrega urgente está disponible como servicio adicional.</p></div></div>
+      <div class="faq-item reveal d1"><div class="faq-q" onclick="toggleFaq(this)"><h3 data-i="faq5_q">¿Qué debemos usar?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p data-i="faq5_a">Enviaré una guía de estilo personalizada después de reservar. En general, tonos coordinados (no exactamente iguales) se ven muy bien para familias. Evita patrones llamativos y logos. Lo más importante — usa algo que te haga sentir con confianza.</p></div></div>
+      <div class="faq-item reveal d2"><div class="faq-q" onclick="toggleFaq(this)"><h3 data-i="faq6_q">¿Qué pasa si llueve o necesitamos reagendar?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p data-i="faq6_a">¡El clima puede fallar! Si necesitamos reagendar por el tiempo, encontraré una nueva fecha sin costo adicional. Para reagendamientos por otras razones, pido un aviso de al menos 48 horas.</p></div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><h3 data-i="faq7_q">¿Fotografías el evento de quinceañera Y los retratos?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p data-i="faq7_a">¡Sí! Ofrezco tanto sesiones formales de retratos (antes del evento) como cobertura completa del festejo. Muchos clientes reservan ambas. Contáctame y construimos el paquete perfecto para tu día especial.</p></div></div>
+      <div class="faq-item reveal d1"><div class="faq-q" onclick="toggleFaq(this)"><h3 data-i="faq8_q">¿Ofrecen planes de pago?</h3><div class="faq-icon">+</div></div><div class="faq-a"><p data-i="faq8_a">Por supuesto. Un depósito del 50% asegura tu fecha, y el saldo restante se paga el día de la sesión. Para paquetes más grandes se pueden arreglar planes personalizados — ¡solo pregunta!</p></div></div>
     </div>
     <footer>
       <div class="footer-logo">Saul <span>Captures</span></div>
       <ul class="footer-links">
-        <li><a onclick="showPage('home')">Home</a></li><li><a onclick="showPage('gallery')">Gallery</a></li>
-        <li><a onclick="showPage('pricing')">Pricing</a></li><li><a onclick="showPage('contact')">Contact</a></li>
+        <li><a onclick="showPage('home')" data-i="nav_home">Inicio</a></li>
+        <li><a onclick="showPage('gallery')" data-i="nav_gallery">Galería</a></li>
+        <li><a onclick="showPage('pricing')" data-i="nav_pricing">Precios</a></li>
+        <li><a onclick="showPage('contact')" data-i="nav_book">Reservar</a></li>
       </ul>
-      <p class="footer-copy">© 2025 Saul Captures · All rights reserved</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/fotografonyc1/" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="https://www.tiktok.com/@saultemifotos" target="_blank"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.54V6.78a4.85 4.85 0 01-1.02-.09z"/></svg></a>
+      </div>
+      <p class="footer-copy" data-i="footer_copy">© 2025 Saul Captures · Todos los derechos reservados</p>
     </footer>
   </div>
 
-  <!-- CONTACT -->
+  <!-- ═══ CONTACT ═══ -->
   <div class="page" id="page-contact">
     <div class="page-header">
-      <p class="eyebrow">Let's Connect</p>
-      <h2 class="pg-title">Book Your Session</h2>
+      <p class="eyebrow" data-i="contact_eyebrow">Hablemos</p>
+      <h2 class="pg-title" data-i="contact_title">Reserva tu Sesión</h2>
       <div class="divider"></div>
-      <p class="pg-desc">Tell me about your vision and I'll be in touch within 24 hours.</p>
+      <p class="pg-desc" data-i="contact_desc">Cuéntame tu visión y te responderé en 24 horas.</p>
     </div>
     <div class="contact-wrap">
-      <form class="contact-form" onsubmit="handleSubmit(event)">
+      <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
         <div class="form-row">
-          <div class="form-group"><label class="form-label">First Name</label><input type="text" class="form-input" placeholder="Maria" required /></div>
-          <div class="form-group"><label class="form-label">Last Name</label><input type="text" class="form-input" placeholder="Gonzalez" required /></div>
+          <div class="form-group"><label class="form-label" data-i="lbl_fname">Nombre</label><input type="text" id="f_fname" class="form-input" placeholder="María" required /></div>
+          <div class="form-group"><label class="form-label" data-i="lbl_lname">Apellido</label><input type="text" id="f_lname" class="form-input" placeholder="González" required /></div>
         </div>
         <div class="form-row">
-          <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="maria@example.com" required /></div>
-          <div class="form-group"><label class="form-label">Phone (Optional)</label><input type="tel" class="form-input" placeholder="(555) 000-0000" /></div>
+          <div class="form-group"><label class="form-label" data-i="lbl_email">Correo Electrónico</label><input type="email" id="f_email" class="form-input" placeholder="maria@ejemplo.com" required /></div>
+          <div class="form-group"><label class="form-label" data-i="lbl_phone">Teléfono (Opcional)</label><input type="tel" id="f_phone" class="form-input" placeholder="(555) 000-0000" /></div>
         </div>
         <div class="form-group">
-          <label class="form-label">Session Type</label>
-          <select class="form-select form-input">
-            <option value="">Select a session type...</option>
-            <option>Quinceañera Portrait Session</option>
-            <option>Quinceañera Full Event Coverage</option>
-            <option>Newborn / Baby Session</option>
-            <option>Family Portrait Session</option>
-            <option>Individual Portrait Session</option>
-            <option>Holiday Mini Session</option>
-            <option>Other / Custom Package</option>
+          <label class="form-label" data-i="lbl_session">Tipo de Sesión</label>
+          <select id="f_session" class="form-select form-input">
+            <option value="" data-i="session_default">Selecciona un tipo de sesión...</option>
+            <option data-i="session_quince_portrait">Sesión de Retrato para Quinceañera</option>
+            <option data-i="session_quince_event">Cobertura Completa de Quinceañera</option>
+            <option data-i="session_newborn">Sesión de Recién Nacido / Bebé</option>
+            <option data-i="session_family">Sesión de Retratos Familiares</option>
+            <option data-i="session_portrait">Sesión de Retrato Individual</option>
+            <option data-i="session_mini">Mini Sesión Festiva</option>
+            <option data-i="session_other">Otro / Paquete Personalizado</option>
           </select>
         </div>
-        <div class="form-group"><label class="form-label">Ideal Date</label><input type="text" class="form-input" placeholder="e.g. June 2025, flexible..." /></div>
-        <div class="form-group"><label class="form-label">Tell Me About Your Vision</label><textarea class="form-textarea" placeholder="Share any details — location ideas, number of people, special requests..."></textarea></div>
-        <button type="submit" class="form-submit">Send My Inquiry →</button>
+        <div class="form-group"><label class="form-label" data-i="lbl_date">Fecha Ideal (Aproximada)</label><input type="text" id="f_date" class="form-input" placeholder="ej. Junio 2025, flexible..." /></div>
+        <div class="form-group"><label class="form-label" data-i="lbl_msg">Cuéntame tu Visión</label><textarea id="f_msg" class="form-textarea" placeholder="Comparte detalles — ideas de lugar, número de personas, solicitudes especiales..."></textarea></div>
+        <button type="submit" class="form-submit" data-i="contact_submit">Enviar mi Solicitud →</button>
       </form>
+      <p class="sms-note" data-i="sms_note">Tu mensaje llegará directamente a nuestro teléfono vía SMS.</p>
       <div class="contact-info">
-        <div class="ci"><span class="ci-label">Email</span><span class="ci-value">hello@saulcaptures.com</span></div>
-        <div class="ci"><span class="ci-label">Instagram</span><span class="ci-value">@saulcaptures</span></div>
-        <div class="ci"><span class="ci-label">Response Time</span><span class="ci-value">Within 24–48 hours</span></div>
+        <div class="ci"><span class="ci-label">Instagram</span><span class="ci-value"><a href="https://www.instagram.com/fotografonyc1/" target="_blank">@fotografonyc1</a></span></div>
+        <div class="ci"><span class="ci-label">TikTok</span><span class="ci-value"><a href="https://www.tiktok.com/@saultemifotos" target="_blank">@saultemifotos</a></span></div>
+        <div class="ci"><span class="ci-label" data-i="ci_response">Tiempo de Respuesta</span><span class="ci-value" data-i="ci_response_val">En 24–48 horas</span></div>
       </div>
     </div>
     <footer>
       <div class="footer-logo">Saul <span>Captures</span></div>
       <ul class="footer-links">
-        <li><a onclick="showPage('home')">Home</a></li><li><a onclick="showPage('gallery')">Gallery</a></li>
-        <li><a onclick="showPage('pricing')">Pricing</a></li><li><a onclick="showPage('faq')">FAQ</a></li>
+        <li><a onclick="showPage('home')" data-i="nav_home">Inicio</a></li>
+        <li><a onclick="showPage('gallery')" data-i="nav_gallery">Galería</a></li>
+        <li><a onclick="showPage('pricing')" data-i="nav_pricing">Precios</a></li>
+        <li><a onclick="showPage('faq')" data-i="nav_faq">FAQ</a></li>
       </ul>
-      <p class="footer-copy">© 2025 Saul Captures · All rights reserved</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/fotografonyc1/" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="https://www.tiktok.com/@saultemifotos" target="_blank"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.54V6.78a4.85 4.85 0 01-1.02-.09z"/></svg></a>
+      </div>
+      <p class="footer-copy" data-i="footer_copy">© 2025 Saul Captures · Todos los derechos reservados</p>
     </footer>
   </div>
 
   <script>
-    const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
-    let mx=0,my=0,rx=0,ry=0;
-    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-    (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
-    document.addEventListener('mouseover',e=>{if(e.target.closest('a,button,.gallery-item,.faq-q,.gallery-tab')){cursor.style.width='18px';cursor.style.height='18px';ring.style.width='48px';ring.style.height='48px';}});
-    document.addEventListener('mouseout',e=>{if(e.target.closest('a,button,.gallery-item,.faq-q,.gallery-tab')){cursor.style.width='10px';cursor.style.height='10px';ring.style.width='34px';ring.style.height='34px';}});
-    window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);});
-    function showPage(id){
-      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-      document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
-      const pg=document.getElementById('page-'+id);
-      if(pg){pg.classList.add('active');window.scrollTo(0,0);}
-      const lk=document.querySelector('.nav-links a[data-page="'+id+'"]');
-      if(lk)lk.classList.add('active');
-      setTimeout(triggerReveals,60);
+  // ── Cursor ──
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.addEventListener('mouseover',e=>{if(e.target.closest('a,button,.gallery-item,.faq-q,.gallery-tab')){cursor.style.width='18px';cursor.style.height='18px';ring.style.width='48px';ring.style.height='48px';}});
+  document.addEventListener('mouseout',e=>{if(e.target.closest('a,button,.gallery-item,.faq-q,.gallery-tab')){cursor.style.width='10px';cursor.style.height='10px';ring.style.width='34px';ring.style.height='34px';}});
+
+  // ── Nav scroll ──
+  window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);});
+
+  // ── Page navigation ──
+  function showPage(id){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a[data-page]').forEach(a=>a.classList.remove('active'));
+    const pg=document.getElementById('page-'+id);
+    if(pg){pg.classList.add('active');window.scrollTo(0,0);}
+    const lk=document.querySelector('.nav-links a[data-page="'+id+'"]');
+    if(lk)lk.classList.add('active');
+    setTimeout(triggerReveals,60);
+  }
+
+  // ── Reveal ──
+  function triggerReveals(){
+    const els=document.querySelectorAll('.page.active .reveal');
+    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+    els.forEach(el=>{el.classList.remove('visible');obs.observe(el);});
+  }
+  triggerReveals();
+
+  // ── Gallery tabs ──
+  function switchTab(id,btn){
+    document.querySelectorAll('.gallery-section').forEach(s=>s.classList.remove('active'));
+    document.querySelectorAll('.gallery-tab').forEach(t=>t.classList.remove('active'));
+    document.getElementById('tab-'+id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ── FAQ ──
+  function toggleFaq(el){
+    const item=el.closest('.faq-item'),isOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+    if(!isOpen)item.classList.add('open');
+  }
+
+  // ── Contact → SMS ──
+  function handleSubmit(e){
+    e.preventDefault();
+    const fname = document.getElementById('f_fname').value.trim();
+    const lname = document.getElementById('f_lname').value.trim();
+    const email = document.getElementById('f_email').value.trim();
+    const phone = document.getElementById('f_phone').value.trim();
+    const session = document.getElementById('f_session').value.trim();
+    const date = document.getElementById('f_date').value.trim();
+    const msg = document.getElementById('f_msg').value.trim();
+    const lang = document.documentElement.lang;
+    const isES = lang === 'es';
+
+    const body = (isES
+      ? 'Nueva solicitud desde el sitio web:\n'
+      : 'New inquiry from website:\n')
+      + (isES ? 'Nombre: ' : 'Name: ') + fname + ' ' + lname + '\n'
+      + 'Email: ' + email + '\n'
+      + (phone ? ((isES ? 'Tel: ' : 'Phone: ') + phone + '\n') : '')
+      + (isES ? 'Sesión: ' : 'Session: ') + session + '\n'
+      + (isES ? 'Fecha: ' : 'Date: ') + date + '\n'
+      + (isES ? 'Mensaje: ' : 'Message: ') + msg;
+
+    const btn = e.target.querySelector('.form-submit');
+    const orig = btn.textContent;
+
+    // Detect mobile (iOS / Android)
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      // On mobile: sms: opens the native Messages app pre-filled — user just taps Send
+      // iOS uses & as separator, Android uses ?  — try both via a hidden <a> click
+      const sep = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? '&' : '?';
+      const smsURL = 'sms:9293239892' + sep + 'body=' + encodeURIComponent(body);
+      btn.textContent = isES ? 'Abriendo SMS... ✦' : 'Opening SMS... ✦';
+      btn.style.background = '#4a7c4f';
+      btn.disabled = true;
+      // Small delay so button state renders before browser switches apps
+      setTimeout(() => { window.location.href = smsURL; }, 120);
+      setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; e.target.reset(); }, 4000);
+    } else {
+      // On desktop: show a modal with the pre-written message + the phone number to copy
+      btn.textContent = isES ? '¡Listo! Revisa abajo ↓' : 'Done! See below ↓';
+      btn.style.background = '#4a7c4f';
+      btn.disabled = true;
+
+      // Build or reuse the desktop info box
+      let box = document.getElementById('sms-desktop-box');
+      if (!box) {
+        box = document.createElement('div');
+        box.id = 'sms-desktop-box';
+        box.style.cssText = 'margin-top:24px;padding:24px;background:#fdf9f2;border:1.5px solid #a8792e;border-radius:2px;';
+        e.target.parentNode.insertBefore(box, e.target.nextSibling);
+      }
+      box.innerHTML = `
+        <p style="font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:#a8792e;margin-bottom:12px;">
+          ${isES ? '📱 Envía este mensaje al: (929) 323-9892' : '📱 Text this to: (929) 323-9892'}
+        </p>
+        <pre style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:#3d3630;white-space:pre-wrap;word-break:break-word;line-height:1.7;background:#fff;padding:16px;border:1px solid #e2d9cc;">${body.replace(/</g,'&lt;')}</pre>
+        <button onclick="navigator.clipboard.writeText(document.querySelector('#sms-desktop-box pre').innerText).then(()=>{this.textContent='${isES?'¡Copiado!':'Copied!'}';setTimeout(()=>{this.textContent='${isES?'Copiar mensaje':'Copy message'}'},2000)})"
+          style="margin-top:12px;font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;padding:10px 24px;background:#1e1a15;color:#faf8f4;border:none;cursor:pointer;border-radius:1px;">
+          ${isES ? 'Copiar mensaje' : 'Copy message'}
+        </button>
+        <a href="sms:9293239892?body=${encodeURIComponent(body)}" style="display:inline-block;margin-left:10px;font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;padding:10px 24px;background:#a8792e;color:#fff;text-decoration:none;border-radius:1px;">
+          ${isES ? 'Abrir SMS' : 'Open SMS'}
+        </a>`;
+
+      setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; }, 4000);
     }
-    function triggerReveals(){
-      const els=document.querySelectorAll('.page.active .reveal');
-      const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
-      els.forEach(el=>{el.classList.remove('visible');obs.observe(el);});
+  }
+
+  // ── LANGUAGE SYSTEM ──
+  const T = {
+    es: {
+      nav_home:'Inicio', nav_gallery:'Galería', nav_pricing:'Precios', nav_faq:'FAQ', nav_book:'Reservar',
+      hero_video_label:'Fondo de Video', hero_video_hint:'Reemplaza esto con tu video — ve el comentario en el código.',
+      hero_eyebrow:'Fotografía de Retratos y Estilo de Vida', hero_title_em:'Cuenta una Historia',
+      hero_sub:'Quinceañeras · Sesiones · Recién Nacidos · Retratos Familiares',
+      hero_btn1:'Ver Galería', hero_btn2:'Reservar Sesión', scroll_label:'Deslizar',
+      about_eyebrow:'Sobre Saul', about_title:'Capturando Tus Momentos<br/>Más Preciados',
+      about_p1:'Creo que cada familia, cada logro, cada risa merece ser preservada con intención y arte. Desde la ternura de un recién nacido hasta la alegría de una quinceañera, estoy aquí para contar tu historia — de manera bella y auténtica.',
+      about_p2:'Trabajando con luz natural y un amor genuino por las personas, creo imágenes que se sienten eternas — fotografías que pasarás de generación en generación.',
+      about_btn:'Explorar la Galería', about_photo_ph:'Tu retrato aquí',
+      stat1:'Sesiones Completadas', stat2:'Satisfacción del Cliente', stat3:'Especialidades', stat4:'Años de Experiencia',
+      gallery_eyebrow:'Portafolio', gallery_title:'La Galería', gallery_desc:'Una selección de sesiones — navega por categoría abajo.',
+      tab_quince:'Quinceañeras', tab_sessions:'Sesiones', tab_baby:'Bebé y Recién Nacido', tab_family:'Familia',
+      g_q1:'Retrato de Vestido', g_q2:'Detalle Floral', g_q3:'Momento de la Corona', g_q4:'Toda la Corte', g_q5:'Sesión en Jardín', g_q6:'Primer Vals',
+      g_quince_caption:'Cada sesión única, cada historia inolvidable.',
+      g_s1:'Hora Dorada', g_s2:'Sesión de Estudio', g_s3:'Luz Natural', g_s4:'Urbano Editorial', g_s5:'Graduación',
+      g_sessions_caption:'Sesiones personalizadas alrededor de tu estilo y visión.',
+      g_b1:'Recién Nacido Envuelto', g_b2:'Pose en Canasta', g_b3:'Bebé Dormilón', g_b4:'Primer Pastel', g_b5:'6 Meses',
+      g_baby_caption:'Delicado y tierno — capturando el milagro de la nueva vida.',
+      g_f1:'Atardecer en el Campo', g_f2:'Momentos Espontáneos', g_f3:'Sesión en el Parque', g_f4:'Mini Sesión Festiva', g_f5:'Sesión Navideña',
+      g_family_caption:'Retratos familiares llenos de risas, calidez y conexión real.',
+      pricing_eyebrow:'Inversión', pricing_title:'Precios Simples y Transparentes', pricing_desc:'Cada paquete está diseñado cuidadosamente — sin costos ocultos, sin sorpresas.',
+      pkg1_type:'Sesión de Retrato', pkg1_name:'Esencial', pkg1_note:'Precio inicial · 1 hora',
+      f1_1:'Sesión de 1 hora', f1_2:'1 locación', f1_3:'1 cambio de ropa', f1_4:'15 fotos digitales editadas', f1_5:'Galería en línea', f1_6:'Entrega en 2 semanas',
+      pkg2_type:'Familia / Quinceañera', pkg2_name:'Signature', pkg2_note:'Precio inicial · 2–3 horas',
+      f2_1:'Sesión de 2–3 horas', f2_2:'Hasta 2 locaciones', f2_3:'Múltiples cambios de ropa', f2_4:'40 fotos digitales editadas', f2_5:'Galería privada en línea', f2_6:'Entrega en 1 semana', f2_7:'1 impresión 8×10 incluida',
+      pkg3_type:'Recién Nacido / Bebé', pkg3_name:'Newborn', pkg3_note:'Precio inicial · Hasta 2 horas',
+      f3_1:'Sesión delicada de hasta 2 horas', f3_2:'Opción de estudio o en casa', f3_3:'Múltiples poses y envoltorios', f3_4:'25 fotos digitales editadas', f3_5:'Galería privada en línea', f3_6:'Entrega en 10 días', f3_7:'Fotos con hermanos/padres incluidas',
+      popular_badge:'Más Popular', pkg_btn:'Reservar este Paquete',
+      extras_title:'Servicios Adicionales',
+      ex1:'Foto editada adicional', ex2:'Entrega urgente (48–72 horas)', ex3:'Hora extra de sesión', ex4:'Viaje (más de 30 millas)', ex5:'Impresión 8×10', ex6:'Impresión en lienzo (16×20)', ex7:'Mini sesión festiva (30 min)',
+      extras_note:'Todos los precios son iniciales. Paquetes personalizados disponibles —', extras_link:'contáctanos para hablar.',
+      faq_eyebrow:'Preguntas Frecuentes', faq_title:'Preguntas Frecuentes', faq_desc:'Todo lo que necesitas saber antes de reservar tu sesión.',
+      faq1_q:'¿Cómo reservo una sesión?', faq1_a:'Simplemente llena el formulario de contacto o envíame un mensaje. Responderé en 24–48 horas para confirmar tu fecha, hablar sobre tu visión y enviarte el acuerdo de reserva. Se requiere un depósito para asegurar tu fecha.',
+      faq2_q:'¿Con cuánto tiempo de anticipación debo reservar?', faq2_a:'Para sesiones de retrato recomiendo reservar con 3–4 semanas de anticipación, y 2–3 meses para quinceañeras. Para recién nacidos, lo ideal es reservar durante el segundo trimestre del embarazo.',
+      faq3_q:'¿Dónde será la sesión?', faq3_a:'La sesión puede ser en el lugar que prefieras — parques, áreas urbanas, tu hogar, un estudio, o cualquier lugar significativo. Pueden aplicar tarifas de viaje más de 30 millas.',
+      faq4_q:'¿Cuándo recibiré mis fotos?', faq4_a:'La mayoría de las sesiones se entregan en 1–2 semanas a través de una galería privada en línea. La entrega urgente está disponible como servicio adicional.',
+      faq5_q:'¿Qué debemos usar?', faq5_a:'Enviaré una guía de estilo personalizada después de reservar. Tonos coordinados se ven muy bien para familias. Lo más importante — usa algo que te haga sentir con confianza.',
+      faq6_q:'¿Qué pasa si llueve o necesitamos reagendar?', faq6_a:'¡El clima puede fallar! Si necesitamos reagendar por el tiempo, encontraré una nueva fecha sin costo adicional. Para reagendamientos por otras razones, pido un aviso de al menos 48 horas.',
+      faq7_q:'¿Fotografías el evento de quinceañera Y los retratos?', faq7_a:'¡Sí! Ofrezco tanto sesiones formales de retratos como cobertura completa del festejo. Contáctame y construimos el paquete perfecto para tu día especial.',
+      faq8_q:'¿Ofrecen planes de pago?', faq8_a:'Por supuesto. Un depósito del 50% asegura tu fecha, y el saldo restante se paga el día de la sesión. Para paquetes más grandes se pueden arreglar planes personalizados.',
+      contact_eyebrow:'Hablemos', contact_title:'Reserva tu Sesión', contact_desc:'Cuéntame tu visión y te responderé en 24 horas.',
+      lbl_fname:'Nombre', lbl_lname:'Apellido', lbl_email:'Correo Electrónico', lbl_phone:'Teléfono (Opcional)',
+      lbl_session:'Tipo de Sesión', lbl_date:'Fecha Ideal (Aproximada)', lbl_msg:'Cuéntame tu Visión',
+      session_default:'Selecciona un tipo de sesión...', session_quince_portrait:'Sesión de Retrato para Quinceañera',
+      session_quince_event:'Cobertura Completa de Quinceañera', session_newborn:'Sesión de Recién Nacido / Bebé',
+      session_family:'Sesión de Retratos Familiares', session_portrait:'Sesión de Retrato Individual',
+      session_mini:'Mini Sesión Festiva', session_other:'Otro / Paquete Personalizado',
+      contact_submit:'Enviar mi Solicitud →', sms_note:'📱 En celular: abre tu app de mensajes lista para enviar. En computadora: te mostramos el mensaje para copiar y enviar al (929) 323-9892.',
+      ci_response:'Tiempo de Respuesta', ci_response_val:'En 24–48 horas',
+      footer_copy:'© 2025 Saul Captures · Todos los derechos reservados'
+    },
+    en: {
+      nav_home:'Home', nav_gallery:'Gallery', nav_pricing:'Pricing', nav_faq:'FAQ', nav_book:'Book Now',
+      hero_video_label:'Video Background', hero_video_hint:'Replace this with your video — see the code comment above.',
+      hero_eyebrow:'Portrait & Lifestyle Photography', hero_title_em:'Tells a Story',
+      hero_sub:'Quinceañeras · Sessions · Newborns · Family Portraits',
+      hero_btn1:'View Gallery', hero_btn2:'Book a Session', scroll_label:'Scroll',
+      about_eyebrow:'About Saul', about_title:'Capturing Your Most<br/>Precious Moments',
+      about_p1:'I believe every family, every milestone, every laugh deserves to be preserved with intention and artistry. From the quiet tenderness of a newborn to the joy of a quinceañera, I\'m here to tell your story — beautifully and authentically.',
+      about_p2:'Working with natural light and a genuine love for people, I create images that feel timeless — photographs you\'ll pass down for generations.',
+      about_btn:'Explore the Gallery', about_photo_ph:'Your portrait here',
+      stat1:'Sessions Completed', stat2:'Client Satisfaction', stat3:'Specialties', stat4:'Years Experience',
+      gallery_eyebrow:'Portfolio', gallery_title:'The Gallery', gallery_desc:'A curated selection of sessions — browse by category below.',
+      tab_quince:'Quinceañeras', tab_sessions:'Sessions', tab_baby:'Baby & Newborn', tab_family:'Family',
+      g_q1:'Gown Portrait', g_q2:'Florals Detail', g_q3:'Crown Moment', g_q4:'Full Court', g_q5:'Garden Session', g_q6:'First Dance',
+      g_quince_caption:'Each session unique, each story unforgettable.',
+      g_s1:'Golden Hour', g_s2:'Studio Session', g_s3:'Natural Light', g_s4:'Urban Editorial', g_s5:'Graduation',
+      g_sessions_caption:'Personalized sessions crafted around your style and vision.',
+      g_b1:'Newborn Wrap', g_b2:'Basket Pose', g_b3:'Sleepy Newborn', g_b4:'Cake Smash', g_b5:'6-Month Milestone',
+      g_baby_caption:'Gentle and tender — capturing the miracle of new life.',
+      g_f1:'Sunset Field', g_f2:'Candid Moments', g_f3:'Park Session', g_f4:'Holiday Mini', g_f5:'Christmas Session',
+      g_family_caption:'Family portraits full of laughter, warmth, and real connection.',
+      pricing_eyebrow:'Investment', pricing_title:'Simple, Transparent Pricing', pricing_desc:'Each package is thoughtfully designed — no hidden fees, no surprises.',
+      pkg1_type:'Portrait Session', pkg1_name:'Essential', pkg1_note:'Starting price · 1 hour',
+      f1_1:'1-hour session', f1_2:'1 location', f1_3:'1 outfit change', f1_4:'15 edited digital photos', f1_5:'Online gallery delivery', f1_6:'2-week turnaround',
+      pkg2_type:'Family / Quinceañera', pkg2_name:'Signature', pkg2_note:'Starting price · 2–3 hours',
+      f2_1:'2–3 hour session', f2_2:'Up to 2 locations', f2_3:'Multiple outfit changes', f2_4:'40 edited digital photos', f2_5:'Private online gallery', f2_6:'1-week turnaround', f2_7:'1 printed 8×10 included',
+      pkg3_type:'Newborn / Baby', pkg3_name:'Newborn', pkg3_note:'Starting price · Up to 2 hours',
+      f3_1:'Up to 2-hour gentle session', f3_2:'Studio or in-home option', f3_3:'Multiple setups & wraps', f3_4:'25 edited digital photos', f3_5:'Private online gallery', f3_6:'10-day turnaround', f3_7:'Sibling/parent photos included',
+      popular_badge:'Most Popular', pkg_btn:'Book This Package',
+      extras_title:'À La Carte Add-Ons',
+      ex1:'Additional edited photo', ex2:'Rush delivery (48–72 hours)', ex3:'Extra hour of shooting', ex4:'Travel fee (beyond 30 miles)', ex5:'8×10 print', ex6:'Canvas print (16×20)', ex7:'Holiday mini session (30 min)',
+      extras_note:'All prices are starting rates. Custom packages available —', extras_link:'reach out to chat.',
+      faq_eyebrow:'Common Questions', faq_title:'Frequently Asked Questions', faq_desc:'Everything you need to know before booking your session.',
+      faq1_q:'How do I book a session?', faq1_a:"Simply fill out the contact form or message me directly. I'll respond within 24–48 hours to confirm your date, discuss your vision, and send a booking agreement. A deposit is required to hold your date.",
+      faq2_q:'How far in advance should I book?', faq2_a:"I recommend booking 3–4 weeks ahead for portrait sessions, and 2–3 months for quinceañeras. Newborn sessions are best booked during your second trimester.",
+      faq3_q:'Where will our session take place?', faq3_a:'Sessions can happen anywhere — parks, urban spots, your home, a studio, or any meaningful place. Travel fees may apply beyond 30 miles.',
+      faq4_q:'When will I receive my photos?', faq4_a:'Most sessions are delivered within 1–2 weeks via a private online gallery. Rush delivery is available as an add-on.',
+      faq5_q:'What should we wear?', faq5_a:"I'll send a personalized style guide after booking. Coordinating tones look great for families. Most importantly, wear something that makes you feel confident.",
+      faq6_q:'What if it rains or we need to reschedule?', faq6_a:"Weather happens! If we need to reschedule due to weather, I'll find you a new date at no extra charge. I ask for at least 48 hours notice for other reschedules.",
+      faq7_q:'Do you shoot quinceañera events AND portraits?', faq7_a:"Yes! I offer both formal portrait sessions and full event coverage. Reach out and we'll build the perfect package for your special day.",
+      faq8_q:'Do you offer payment plans?', faq8_a:'Absolutely. A 50% deposit secures your date, with the remaining balance due the day of your session. Custom plans can be arranged for larger packages.',
+      contact_eyebrow:"Let's Connect", contact_title:'Book Your Session', contact_desc:"Tell me about your vision and I'll be in touch within 24 hours.",
+      lbl_fname:'First Name', lbl_lname:'Last Name', lbl_email:'Email', lbl_phone:'Phone (Optional)',
+      lbl_session:'Session Type', lbl_date:'Ideal Date (Approximate)', lbl_msg:'Tell Me About Your Vision',
+      session_default:'Select a session type...', session_quince_portrait:'Quinceañera Portrait Session',
+      session_quince_event:'Quinceañera Full Event Coverage', session_newborn:'Newborn / Baby Session',
+      session_family:'Family Portrait Session', session_portrait:'Individual Portrait Session',
+      session_mini:'Holiday Mini Session', session_other:'Other / Custom Package',
+      contact_submit:'Send My Inquiry →', sms_note:'📱 On mobile: opens your Messages app ready to send. On desktop: we\'ll show you the message to copy and text to (929) 323-9892.',
+      ci_response:'Response Time', ci_response_val:'Within 24–48 hours',
+      footer_copy:'© 2025 Saul Captures · All rights reserved'
     }
-    triggerReveals();
-    function switchTab(id,btn){
-      document.querySelectorAll('.gallery-section').forEach(s=>s.classList.remove('active'));
-      document.querySelectorAll('.gallery-tab').forEach(t=>t.classList.remove('active'));
-      document.getElementById('tab-'+id).classList.add('active');
-      btn.classList.add('active');
+  };
+
+  let currentLang = 'es';
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.getElementById('btn-es').classList.toggle('active', lang==='es');
+    document.getElementById('btn-en').classList.toggle('active', lang==='en');
+    const t = T[lang];
+    document.querySelectorAll('[data-i]').forEach(el => {
+      const key = el.getAttribute('data-i');
+      if (t[key] !== undefined) {
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          // skip — placeholders handled separately
+        } else {
+          el.innerHTML = t[key];
+        }
+      }
+    });
+    // Update hero title (special case: "Every Frame / Cada Foto" is hardcoded partly)
+    const heroH1 = document.querySelector('.hero-title');
+    if (heroH1) {
+      heroH1.innerHTML = (lang==='es' ? 'Cada Foto<br/>' : 'Every Frame<br/>') + '<em data-i="hero_title_em">' + t['hero_title_em'] + '</em>';
     }
-    function toggleFaq(el){
-      const item=el.closest('.faq-item'),isOpen=item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
-      if(!isOpen)item.classList.add('open');
-    }
-    function handleSubmit(e){
-      e.preventDefault();
-      const btn=e.target.querySelector('.form-submit');
-      btn.textContent='Inquiry Sent ✦';btn.style.background='#4a7c4f';btn.disabled=true;
-      setTimeout(()=>{btn.textContent='Send My Inquiry →';btn.style.background='';btn.disabled=false;e.target.reset();},4000);
-    }
-    const hl=document.querySelector('.nav-links a[data-page="home"]');
-    if(hl)hl.classList.add('active');
+    // Placeholders
+    const phs = {
+      f_fname: lang==='es' ? 'María' : 'Maria',
+      f_lname: lang==='es' ? 'González' : 'Gonzalez',
+      f_email: lang==='es' ? 'maria@ejemplo.com' : 'maria@example.com',
+      f_phone: '(555) 000-0000',
+      f_date:  lang==='es' ? 'ej. Junio 2025, flexible...' : 'e.g. June 2025, flexible...',
+      f_msg:   lang==='es' ? 'Comparte detalles — ideas de lugar, número de personas, solicitudes especiales...' : 'Share any details — location ideas, number of people, special requests...'
+    };
+    Object.entries(phs).forEach(([id,ph])=>{ const el=document.getElementById(id); if(el)el.placeholder=ph; });
+  }
+
+  // Init
+  document.getElementById('btn-es').classList.add('active');
+  const homeLink = document.querySelector('.nav-links a[data-page="home"]');
+  if(homeLink) homeLink.classList.add('active');
   </script>
 </body>
 </html>
