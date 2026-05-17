@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Saul Captures | Fotografía</title>
+  <link rel="preload" href="IMG_1673.jpg" as="image" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -72,7 +73,7 @@
     .hero-title{font-family:var(--fd);font-size:clamp(2.4rem,7vw,6rem);font-weight:400;line-height:1.05;letter-spacing:.05em;color:#fff;margin-bottom:18px;opacity:0;animation:fadeUp .9s ease .4s forwards;text-shadow:0 2px 12px rgba(0,0,0,.55),0 4px 32px rgba(0,0,0,.35);}
     .hero-title em{font-style:italic;color:var(--gold);font-family:var(--fb);font-size:1.14em;}
     .hero-sub{font-family:var(--fb);font-size:clamp(.95rem,2.5vw,1.1rem);font-weight:300;color:rgba(255,255,255,.88);letter-spacing:.05em;margin-bottom:40px;opacity:0;animation:fadeUp .9s ease .6s forwards;text-shadow:0 1px 8px rgba(0,0,0,.55);}
-    .hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp .9s ease .8s forwards;}
+    .hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp .9s ease .8s forwards;width:100%;}
     .btn-primary{font-family:var(--fu);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;background:var(--ink);color:var(--bg);padding:15px 36px;border:none;cursor:pointer;transition:background .3s,transform .2s;border-radius:1px;}
     .btn-primary:hover{background:var(--gold);transform:translateY(-2px);}
     .btn-ghost{font-family:var(--fu);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;border:1.5px solid rgba(255,255,255,.6);color:#fff;padding:15px 36px;background:rgba(0,0,0,.18);cursor:pointer;transition:border-color .3s,background .3s,transform .2s;border-radius:1px;text-shadow:0 1px 6px rgba(0,0,0,.4);}
@@ -234,7 +235,7 @@
       .nav-links{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}.hero-line{display:none;}
       .hero{min-height:100svh;}.hero-content{padding:0 20px;}
       .hero-eyebrow{font-size:.6rem;letter-spacing:.28em;margin-bottom:16px;}.hero-sub{margin-bottom:32px;}
-      .hero-actions{gap:10px;}.btn-primary,.btn-ghost{padding:14px 28px;font-size:.68rem;}
+      .hero-actions{gap:12px;flex-direction:column;align-items:center;width:100%;}.btn-primary,.btn-ghost{padding:15px 0;font-size:.68rem;width:220px;text-align:center;display:block;}
       .home-about{grid-template-columns:1fr;}.home-about-video{min-height:280px;border-left:none;border-top:1px solid var(--border);}.home-about-text{padding:52px 24px;}
       .home-stats{grid-template-columns:1fr 1fr;}
       .home-stat{padding:32px 20px;border-right:none;border-bottom:1px solid var(--border);}
@@ -306,6 +307,7 @@
         -->
         <img src="IMG_1673.jpg" alt="Saul Captures"
           style="width:100%;height:100%;object-fit:cover;object-position:center;"
+          fetchpriority="high" loading="eager" decoding="async"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
         <div class="hero-video-placeholder" style="display:none;">
           <div style="font-size:3rem;opacity:.3;">🖼️</div>
@@ -351,7 +353,7 @@
     </div>
 
     <div class="home-stats">
-      <div class="home-stat reveal">   <div class="stat-num">100+</div><div class="stat-label" data-i="stat1">Sesiones Completadas</div></div>
+      <div class="home-stat reveal">   <div class="stat-num">300+</div><div class="stat-label" data-i="stat1">Sesiones Completadas</div></div>
       <div class="home-stat reveal d1"><div class="stat-num">100%</div><div class="stat-label" data-i="stat2">Satisfacción</div></div>
       <div class="home-stat reveal d2"><div class="stat-num">4</div>   <div class="stat-label" data-i="stat3">Especialidades</div></div>
       <div class="home-stat reveal d3"><div class="stat-num">5+</div>  <div class="stat-label" data-i="stat4">Años de Experiencia</div></div>
@@ -406,6 +408,9 @@
             </div>
         </div>
         <p class="gcaption" data-i="g_quince_caption">Cada sesión única, cada historia inolvidable.</p>
+        <div style="text-align:center;margin-top:32px;padding-bottom:8px;">
+          <button class="btn-primary" onclick="showPage('contact')" style="font-size:.68rem;padding:14px 36px;">Reservar una Sesión →</button>
+        </div>
       </div>
 
       <!-- SESIONES — replace session-1.jpg etc. -->
@@ -428,6 +433,9 @@
             </div>
         </div>
         <p class="gcaption" data-i="g_sessions_caption">Sesiones personalizadas alrededor de tu estilo y visión.</p>
+        <div style="text-align:center;margin-top:32px;padding-bottom:8px;">
+          <button class="btn-primary" onclick="showPage('contact')" style="font-size:.68rem;padding:14px 36px;">Reservar una Sesión →</button>
+        </div>
       </div>
 
       <!-- BEBÉ — replace baby-1.jpg etc. -->
@@ -450,6 +458,9 @@
             </div>
         </div>
         <p class="gcaption" data-i="g_baby_caption">Delicado y tierno — capturando el milagro de la nueva vida.</p>
+        <div style="text-align:center;margin-top:32px;padding-bottom:8px;">
+          <button class="btn-primary" onclick="showPage('contact')" style="font-size:.68rem;padding:14px 36px;">Reservar una Sesión →</button>
+        </div>
       </div>
 
       <!-- FAMILIA — replace family-1.jpg etc. -->
@@ -472,6 +483,9 @@
             </div>
         </div>
         <p class="gcaption" data-i="g_family_caption">Retratos familiares llenos de risas, calidez y conexión real.</p>
+        <div style="text-align:center;margin-top:32px;padding-bottom:8px;">
+          <button class="btn-primary" onclick="showPage('contact')" style="font-size:.68rem;padding:14px 36px;">Reservar una Sesión →</button>
+        </div>
       </div>
     </div>
     <footer><div class="footer-logo">Saul <span>Captures</span></div><ul class="footer-links"><li><a onclick="showPage('home')" data-i="nav_home">Inicio</a></li><li><a onclick="showPage('pricing')" data-i="nav_pricing">Precios</a></li><li><a onclick="showPage('faq')" data-i="nav_faq">FAQ</a></li><li><a onclick="showPage('contact')" data-i="nav_book">Reservar</a></li></ul><div class="footer-social"><a href="https://www.instagram.com/fotografonyc1/" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a><a href="https://www.tiktok.com/@saultemifotos" target="_blank"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.54V6.78a4.85 4.85 0 01-1.02-.09z"/></svg></a></div><p class="footer-copy" data-i="footer_copy">© 2025 Saul Captures · Todos los derechos reservados</p></footer>
@@ -703,7 +717,7 @@
     setTimeout(()=>{menu.style.display='none';},350);
   }
 
-  function showPage(id){
+  function showPage(id, pushHistory){
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
     document.querySelectorAll('.nav-links a[data-page]').forEach(a=>a.classList.remove('active'));
     const pg=document.getElementById('page-'+id);
@@ -715,8 +729,27 @@
       document.getElementById('formSuccess').classList.remove('show');
       document.getElementById('formError').classList.remove('show');
     }
+    // Push browser history so swipe-back works
+    if(pushHistory !== false){
+      history.pushState({page: id}, '', '#' + id);
+    }
     setTimeout(triggerReveals,60);
   }
+
+  // Handle browser back/forward + swipe-back
+  window.addEventListener('popstate', function(e){
+    const id = e.state && e.state.page ? e.state.page : 'home';
+    showPage(id, false);
+  });
+
+  // On load: restore page from URL hash (so refresh keeps you on same page)
+  (function(){
+    const hash = window.location.hash.replace('#','');
+    const validPages = ['home','gallery','pricing','faq','contact'];
+    const startPage = validPages.includes(hash) ? hash : 'home';
+    showPage(startPage, false);
+    history.replaceState({page: startPage}, '', '#' + startPage);
+  })();
 
   function triggerReveals(){
     const els=document.querySelectorAll('.page.active .reveal');
