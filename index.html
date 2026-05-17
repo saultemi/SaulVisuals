@@ -731,7 +731,7 @@
     }
     // Push browser history so swipe-back works
     if(pushHistory !== false){
-      history.pushState({page: id}, '', '#' + id);
+      try{ history.pushState({page: id}, '', '#' + id); }catch(e){}
     }
     setTimeout(triggerReveals,60);
   }
@@ -744,11 +744,15 @@
 
   // On load: restore page from URL hash (so refresh keeps you on same page)
   (function(){
-    const hash = window.location.hash.replace('#','');
-    const validPages = ['home','gallery','pricing','faq','contact'];
-    const startPage = validPages.includes(hash) ? hash : 'home';
-    showPage(startPage, false);
-    history.replaceState({page: startPage}, '', '#' + startPage);
+    try {
+      const hash = window.location.hash.replace('#','');
+      const validPages = ['home','gallery','pricing','faq','contact'];
+      const startPage = validPages.includes(hash) ? hash : 'home';
+      showPage(startPage, false);
+      history.replaceState({page: startPage}, '', '#' + startPage);
+    } catch(e) {
+      showPage('home', false);
+    }
   })();
 
   function triggerReveals(){
